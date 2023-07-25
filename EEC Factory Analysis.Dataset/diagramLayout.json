@@ -1,0 +1,295 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 568,
+            "y": 5
+          },
+          "nodeIndex": "eec data source file",
+          "nodeLineageTag": "a06788c6-c96a-4022-99a8-d8e3b187926d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 852,
+            "y": 19
+          },
+          "nodeIndex": "Missing Tambon",
+          "nodeLineageTag": "a31d9be7-053c-44f0-aaa4-61aabff4d386",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1136,
+            "y": 67
+          },
+          "nodeIndex": "Sub-district Lookup",
+          "nodeLineageTag": "b14da4be-87fa-4129-b6f1-c0e419a0a686",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1420,
+            "y": 19
+          },
+          "nodeIndex": "Sub-districts (All Thailand)",
+          "nodeLineageTag": "9da72cca-3452-41eb-b8f6-7c3669685194",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1704,
+            "y": 31
+          },
+          "nodeIndex": "Tambon A",
+          "nodeLineageTag": "ce91a875-a463-4971-8bbd-edd1d8602618",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1988,
+            "y": 31
+          },
+          "nodeIndex": "Tambon B",
+          "nodeLineageTag": "a51a5712-f814-4206-b8ae-7e828478cc58",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2272,
+            "y": 31
+          },
+          "nodeIndex": "Tambon C",
+          "nodeLineageTag": "2048aabe-e4de-4c72-a40d-86ec5cc4b924",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2556,
+            "y": 31
+          },
+          "nodeIndex": "Tambon D",
+          "nodeLineageTag": "962a07b8-6cc3-4a96-98fa-73f39e9dcb4e",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 294,
+            "y": 21
+          },
+          "nodeIndex": "Tambon E-F",
+          "nodeLineageTag": "f82a4e22-0023-43d2-b508-7dd52a70df1d",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 10,
+            "y": 21
+          },
+          "nodeIndex": "Tambon H-I",
+          "nodeLineageTag": "95bc8f86-da12-43f9-91e4-ce121826780d",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2840,
+            "y": 31
+          },
+          "nodeIndex": "Tambon K",
+          "nodeLineageTag": "7f36734a-bad2-46f5-9af5-aa1c48b09432",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3124,
+            "y": 31
+          },
+          "nodeIndex": "Tambon L",
+          "nodeLineageTag": "2e918292-89c3-4d2a-b10a-66cf526d7c22",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3408,
+            "y": 31
+          },
+          "nodeIndex": "Tambon M",
+          "nodeLineageTag": "8bf961b0-16b5-46fc-87c8-4572490117ae",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3692,
+            "y": 31
+          },
+          "nodeIndex": "Tambon N-O",
+          "nodeLineageTag": "4750d3bc-0816-4487-bcca-33848db99489",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3976,
+            "y": 31
+          },
+          "nodeIndex": "Tambon P",
+          "nodeLineageTag": "533d2d5a-e97d-4696-a6ad-c6b02efe495a",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4260,
+            "y": 31
+          },
+          "nodeIndex": "Tambon R",
+          "nodeLineageTag": "7affdf39-ea83-4ba3-a0f1-4208c15c7434",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4544,
+            "y": 31
+          },
+          "nodeIndex": "Tambon S",
+          "nodeLineageTag": "54fba3c3-fa90-4c13-bea7-e637e172f456",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4828,
+            "y": 31
+          },
+          "nodeIndex": "Tambon T",
+          "nodeLineageTag": "d2429ded-1590-4773-a294-49579d08da99",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5112,
+            "y": 31
+          },
+          "nodeIndex": "Tambon U-V",
+          "nodeLineageTag": "63ad19dc-14f2-4853-aa7c-6b4dd8317f2f",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5396,
+            "y": 31
+          },
+          "nodeIndex": "Tambon W",
+          "nodeLineageTag": "5c0fd158-540e-4302-a899-82b9cc1f6511",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5680,
+            "y": 31
+          },
+          "nodeIndex": "Tambon Y",
+          "nodeLineageTag": "8985ff51-0227-404d-9a95-7b6adde09543",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}
