@@ -1,4 +1,7 @@
 {
   "version": "1.0",
-  "settings": {}
+  "settings": {
+    "qnaEnabled": true,
+    "qnaLsdlSharingPermissions": 1
+  }
 }
