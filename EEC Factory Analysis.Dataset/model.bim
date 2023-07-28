@@ -676,53 +676,25 @@
     ],
     "relationships": [
       {
-        "name": "421697d0-99a9-4fad-a108-082fd50fb755",
-        "fromColumn": "district_code",
-        "fromTable": "Data",
-        "toColumn": "district_code",
-        "toTable": "District_Lookup"
-      },
-      {
-        "name": "ae39d602-5b26-427e-81d6-2b35e68ff4f0",
-        "fromColumn": "sub-district code",
-        "fromTable": "Data",
-        "toColumn": "sub-district code",
-        "toTable": "Sub-district_Lookup"
-      },
-      {
-        "name": "7b797922-fd3f-44ed-b63f-c14ff217135d",
+        "name": "ec03485c-4925-409a-8c2a-6ae5ba8fb8d5",
         "fromColumn": "province code",
         "fromTable": "Data",
         "toColumn": "province code",
         "toTable": "Province_Lookup"
       },
       {
-        "name": "8f6140d2-0938-4c66-ac54-e81d44f3b3e2",
-        "fromColumn": "sub category",
+        "name": "e1d654a2-2c88-4123-897f-aefff1b0dc1c",
+        "fromColumn": "district_code",
         "fromTable": "Data",
-        "toColumn": "sub category",
-        "toTable": "Industry Sub-Category"
+        "toColumn": "district_code",
+        "toTable": "District_Lookup"
       },
       {
-        "name": "50eba060-82a1-4093-a63d-7701a2db2137",
-        "fromColumn": "TSISC",
+        "name": "afaa7b1d-99a4-4bbd-8b39-645c35c23290",
+        "fromColumn": "sub-district code",
         "fromTable": "Data",
-        "toColumn": "TSIC",
-        "toTable": "TSIC Lookup"
-      },
-      {
-        "name": "d88c581a-a348-4c00-ac1b-e723134db19c",
-        "fromColumn": "Industry Group",
-        "fromTable": "Data",
-        "toColumn": "Group",
-        "toTable": "Industry Group Lookup"
-      },
-      {
-        "name": "4adcea0d-33b8-4cea-af01-dc6da2872b64",
-        "fromColumn": "province",
-        "fromTable": "Address Details",
-        "toColumn": "province (TH)",
-        "toTable": "Province_Lookup"
+        "toColumn": "sub-district code",
+        "toTable": "Sub-district_Lookup"
       }
     ],
     "sourceQueryCulture": "en-US",
@@ -733,10 +705,6 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
           }
         ],
         "columns": [
@@ -1163,10 +1131,6 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
           }
         ],
         "columns": [
@@ -1589,7 +1553,8 @@
                 "value": "Automatic"
               }
             ],
-            "dataType": "string",
+            "dataType": "int64",
+            "formatString": "0",
             "lineageTag": "c63489e6-a876-44d7-8361-2f3bda792f28",
             "sourceColumn": "province code",
             "summarizeBy": "none"
@@ -1763,9 +1728,10 @@
                 "    #\"Changed Machine Cost (M Baht) to Decimal Number\" = Table.TransformColumnTypes(#\"Added Machine Cost (M Baht) Column\",{{\"Machine Cost (M Baht)\", type number}}),",
                 "    #\"Added Working Capital Number (M Baht)\" = Table.AddColumn(#\"Changed Machine Cost (M Baht) to Decimal Number\", \"Working Capital (M Baht)\", each if [working capital] = null then 0 else if [working capital] > 0 then [working capital] / 1000000 else 0),",
                 "    #\"Added Total Investment (M Baht)\" = Table.AddColumn(#\"Added Working Capital Number (M Baht)\", \"Total Investment (M Baht)\", each if [total investment] = null then null else if [total investment] > 0 then [total investment] / 1000000 else 0),",
-                "    #\"Changed Working Capital (M Baht) and Total Investment (M Baht) to Decimal Number\" = Table.TransformColumnTypes(#\"Added Total Investment (M Baht)\",{{\"Working Capital (M Baht)\", type number}, {\"Total Investment (M Baht)\", type number}, {\"licensed year\", Int64.Type}})",
+                "    #\"Changed Working Capital (M Baht) and Total Investment (M Baht) to Decimal Number\" = Table.TransformColumnTypes(#\"Added Total Investment (M Baht)\",{{\"Working Capital (M Baht)\", type number}, {\"Total Investment (M Baht)\", type number}, {\"licensed year\", Int64.Type}, {\"province code\", Int64.Type}}),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Changed Working Capital (M Baht) and Total Investment (M Baht) to Decimal Number\", each true)",
                 "in",
-                "    #\"Changed Working Capital (M Baht) and Total Investment (M Baht) to Decimal Number\""
+                "    #\"Filtered Rows\""
               ],
               "type": "m"
             }
@@ -1988,10 +1954,6 @@
         "name": "District_Lookup",
         "annotations": [
           {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          },
-          {
             "name": "PBI_ResultType",
             "value": "Table"
           }
@@ -2115,10 +2077,6 @@
         "name": "Geo Analysis Buttons",
         "annotations": [
           {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          },
-          {
             "name": "PBI_ResultType",
             "value": "Table"
           }
@@ -2146,8 +2104,14 @@
                 "value": "Automatic"
               }
             ],
+            "changedProperties": [
+              {
+                "property": "SortByColumn"
+              }
+            ],
             "dataType": "string",
             "lineageTag": "dbd59905-e04d-4185-b95d-5077b6aa575b",
+            "sortByColumn": "Analysis_Type",
             "sourceColumn": "English",
             "summarizeBy": "none"
           },
@@ -2159,8 +2123,14 @@
                 "value": "Automatic"
               }
             ],
+            "changedProperties": [
+              {
+                "property": "SortByColumn"
+              }
+            ],
             "dataType": "string",
             "lineageTag": "e59fe8ab-420b-4f3d-97f6-78bd23729ff6",
+            "sortByColumn": "Analysis_Type",
             "sourceColumn": "Thai",
             "summarizeBy": "none"
           }
@@ -2305,10 +2275,6 @@
         "name": "Industry Sub-Category",
         "annotations": [
           {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          },
-          {
             "name": "PBI_ResultType",
             "value": "Table"
           }
@@ -2450,10 +2416,6 @@
         "name": "Province_Lookup",
         "annotations": [
           {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          },
-          {
             "name": "PBI_ResultType",
             "value": "Table"
           }
@@ -2506,7 +2468,8 @@
                 "value": "Automatic"
               }
             ],
-            "dataType": "string",
+            "dataType": "int64",
+            "formatString": "0",
             "lineageTag": "72013e70-504c-46fd-8b5a-ce2b2f416855",
             "sourceColumn": "province code",
             "summarizeBy": "none"
@@ -2532,9 +2495,10 @@
                 "    #\"Replaced Value2\" = Table.ReplaceValue(#\"Replaced Value1\",\"ฉะเชิงเทรา\",\"Chachoengsao\",Replacer.ReplaceText,{\"province (EN)\"}),",
                 "    #\"Added Custom\" = Table.AddColumn(#\"Replaced Value2\", \"Province\", each [#\"province (EN)\"] & \" / \" & [#\"province (TH)\"]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Added Custom\",{{\"Province\", type text}}),",
-                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Changed Type\",{{\"province (EN)\", \"province (EN)\"}})",
+                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Changed Type\",{{\"province (EN)\", \"province (EN)\"}}),",
+                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Renamed Columns1\",{{\"province code\", Int64.Type}})",
                 "in",
-                "    #\"Renamed Columns1\""
+                "    #\"Changed Type1\""
               ],
               "type": "m"
             }
@@ -2544,10 +2508,6 @@
       {
         "name": "Report Titles",
         "annotations": [
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          },
           {
             "name": "PBI_ResultType",
             "value": "Table"
@@ -2634,10 +2594,6 @@
         "name": "Sub-district_Lookup",
         "annotations": [
           {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          },
-          {
             "name": "PBI_ResultType",
             "value": "Table"
           }
@@ -2718,10 +2674,6 @@
       {
         "name": "TSIC Lookup",
         "annotations": [
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          },
           {
             "name": "PBI_ResultType",
             "value": "Table"
@@ -2932,19 +2884,152 @@
             "lineageTag": "fe452eba-401c-4893-9aad-2dfbb76bd982"
           },
           {
-            "name": "Selected Language",
-            "expression": "SELECTEDVALUE('Language'[Language])",
-            "lineageTag": "67dab5f9-f4a4-4871-b910-36932f5182ba"
-          },
-          {
-            "name": "Dynamic Title",
+            "name": "Dashboard Title (EN)",
             "expression": [
               "",
-              "VAR CurrentLanguage = SELECTEDVALUE('Language'[Language])",
-              "RETURN",
-              "IF(CurrentLanguage = \"Thai\", \"สวัสดี\", \"Hello\")"
+              "CALCULATE(",
+              "    MIN('Report Titles'[English]),            ",
+              "    'Report Titles'[Entity] = \"Dashboard_Title\"    ",
+              ")"
             ],
-            "lineageTag": "0f13d3ce-1531-4bf3-ba20-b45de9e15731"
+            "lineageTag": "ca830168-b46c-4873-a6de-47bce9489905"
+          },
+          {
+            "name": "Geographic Navigation (EN)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[English]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Geographic_analysis\"",
+              ")"
+            ],
+            "lineageTag": "4024a193-1b81-4470-b4f1-0ee8fb11ca22"
+          },
+          {
+            "name": "Investment Navigation (EN)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[English]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Investment_analysis\"",
+              ")"
+            ],
+            "lineageTag": "8e28c4b4-7122-4b7b-9ea0-9725311e89be"
+          },
+          {
+            "name": "Workforce Navigation (EN)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[English]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Workforce_analysis\"",
+              ")"
+            ],
+            "lineageTag": "cc5659e8-165a-4db5-ae5c-8727bbe2cdd2"
+          },
+          {
+            "name": "Address Navigation (EN)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN('Report Titles'[English]),            ",
+              "    'Report Titles'[Entity] = \"Address_Details\"        ",
+              ")"
+            ],
+            "lineageTag": "9348f11c-9dec-4c56-8bef-f728859f3729"
+          },
+          {
+            "name": "Information Navigation (EN)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[English]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Information\"",
+              ")"
+            ],
+            "lineageTag": "763715e4-906b-4f79-95b9-27023e46fce5"
+          },
+          {
+            "name": "Address Navigation (TH)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN('Report Titles'[Thai]),            ",
+              "    'Report Titles'[Entity] = \"Address_Details\"        ",
+              ")"
+            ],
+            "lineageTag": "2e4de1d9-1b36-4a89-ac27-c3965747f762"
+          },
+          {
+            "name": "Dashboard Title (TH)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN('Report Titles'[Thai]),            ",
+              "    'Report Titles'[Entity] = \"Dashboard_Title\"    ",
+              ")"
+            ],
+            "lineageTag": "09214684-f489-4983-be62-93d14006d2e6"
+          },
+          {
+            "name": "Geographic Navigation (TH)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[Thai]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Geographic_analysis\"",
+              ")"
+            ],
+            "lineageTag": "345d7f12-9400-4484-9b67-00073e134814"
+          },
+          {
+            "name": "Information Navigation (TH)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[Thai]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Information\"",
+              ")"
+            ],
+            "lineageTag": "2778d3ca-756a-4b14-b9f1-156b12f9d75a"
+          },
+          {
+            "name": "Investment Navigation (TH)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[Thai]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Investment_analysis\"",
+              ")"
+            ],
+            "lineageTag": "f29c15d8-e077-4f32-bb75-fae31d97c243"
+          },
+          {
+            "name": "Workforce Navigation (TH)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[Thai]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Workforce_analysis\"",
+              ")"
+            ],
+            "lineageTag": "bb8a51b8-a2e8-4f55-92a9-93e06057a819"
           }
         ],
         "partitions": [
@@ -2976,7 +3061,7 @@
         "lineageTag": "73aab386-4963-4ee5-bd4b-73436a37396e",
         "measures": [
           {
-            "name": "Total All Factories",
+            "name": "Geo Total All Factories",
             "expression": [
               "",
               "CALCULATE(",
@@ -2990,7 +3075,7 @@
             "lineageTag": "0571462a-5dff-4977-957a-b07c51ce59df"
           },
           {
-            "name": "Province Total (Million Sqm)",
+            "name": "Geo Province Total (Million Sqm)",
             "expression": [
               "",
               "    VAR Analysis_Type = ",
@@ -3003,52 +3088,33 @@
               "                'Geo Analysis Buttons'[Analysis_Type]",
               "            )",
               "        )",
-              "    RETURN",
+              "    VAR CalculatedValue = ",
               "        SWITCH(",
-              "            TRUE(),",
-              "            Analysis_Type = 1, ",
-              "                CALCULATE(",
-              "                    COUNT(",
-              "                        Data[post code]",
-              "                    ),",
-              "                    USERELATIONSHIP(",
-              "                        Data[province code],",
-              "                        'Province_Lookup Translation'[province code]",
-              "                    )",
+              "            TRUE(),        ",
+              "            Analysis_Type = 1,                  ",
+              "                COUNT(",
+              "                    Data[post code]",
               "                ),",
-              "            Analysis_Type = 2, ",
-              "                CALCULATE(",
-              "                    SUM(",
-              "                        'Data'[factory area (sq Mm)]",
-              "                    ),",
-              "                    USERELATIONSHIP(",
-              "                        Data[province code],",
-              "                        'Province_Lookup Translation'[province code]",
-              "                    )",
+              "            Analysis_Type = 2,                             ",
+              "                SUM(",
+              "                    'Data'[factory area (sq Mm)]",
               "                ),",
-              "            Analysis_Type = 3, ",
-              "                CALCULATE(",
-              "                    SUM(",
+              "            Analysis_Type = 3,                                 ",
+              "                SUM(",
               "                    'Data'[building area (sq Mm)]",
-              "                    ),",
-              "                    USERELATIONSHIP(",
-              "                        Data[province code],",
-              "                        'Province_Lookup Translation'[province code]",
-              "                    )",
               "                )",
+              "        )",
+              "    RETURN",
+              "         COALESCE(",
+              "            CalculatedValue,",
+              "            0",
               "        )"
             ],
             "formatString": "#,0",
             "lineageTag": "6fe36e20-e853-4a86-8666-95837de9d3c0"
           },
           {
-            "name": "District Total (Sqm)",
-            "annotations": [
-              {
-                "name": "PBI_FormatHint",
-                "value": "{\"isGeneralNumber\":true}"
-              }
-            ],
+            "name": "Geo District Total (Small Units)",
             "expression": [
               "",
               "    VAR Analysis_Type = ",
@@ -3061,10 +3127,10 @@
               "                'Geo Analysis Buttons'[Analysis_Type]",
               "            )",
               "        )",
-              "    RETURN",
+              "    VAR CalculatedValue = ",
               "        SWITCH(",
               "            TRUE(),",
-              "            Analysis_Type = 1,                 ",
+              "            Analysis_Type = 1,                   ",
               "                COUNT(",
               "                    Data[post code]",
               "                ),                    ",
@@ -3077,8 +3143,14 @@
               "                Data[Building area (sq m.)]",
               "                )",
               "                    ",
+              "        )",
+              "    RETURN",
+              "        COALESCE(",
+              "            CalculatedValue,",
+              "            0",
               "        )"
             ],
+            "formatString": "#,0",
             "lineageTag": "99320ab9-0963-4c09-8433-ab7aabc59b1e"
           }
         ],
@@ -3111,36 +3183,10 @@
         "lineageTag": "d7c35ff6-4c77-424e-8fee-0d0704a51c5d",
         "measures": [
           {
-            "name": "SelectedLanguage",
-            "expression": "SELECTEDVALUE(Langauges[LanguageCode],\"EN\")",
-            "lineageTag": "ef4d9ecd-55e7-4b49-b4f5-aaa6921bd73c"
-          },
-          {
-            "name": "Dashboard Title",
+            "name": "Geo Total Card Title (EN)",
+            "displayFolder": "EN",
             "expression": [
               "",
-              "VAR ",
-              "    Selected_Language = SELECTEDVALUE(Langauges[Language])",
-              "RETURN    ",
-              "    CALCULATE(",
-              "            MIN('Report Titles'[Display Text]),            ",
-              "            'Report Titles'[Entity] = \"Dashboard_Title\",",
-              "            'Report Titles'[Language] = Selected_Language",
-              "        )",
-              "        ",
-              ""
-            ],
-            "lineageTag": "a506f01d-c30d-4e5e-b14f-a7dbcd55e160"
-          },
-          {
-            "name": "Total Card Title",
-            "expression": [
-              "",
-              "VAR Selected_Language = \"English\"",
-              "    /*SELECTEDVALUE(",
-              "        Langauges[Language]",
-              "    )*/",
-              "    ",
               "VAR Analysis_Type =",
               "    COALESCE(",
               "        SELECTEDVALUE(",
@@ -3151,7 +3197,7 @@
               "RETURN        ",
               "    CALCULATE(",
               "        MIN(",
-              "            'Report Titles'[Display Text]",
+              "            'Report Titles'[English]",
               "        ), ",
               "        'Report Titles'[Analysis Type] = Analysis_Type,",
               "        'Report Titles'[Entity] = \"Geo_Total_Card_Title\"        ",
@@ -3159,6 +3205,124 @@
               ""
             ],
             "lineageTag": "153c20de-fffc-40fa-811a-928dd22613db"
+          },
+          {
+            "name": "Geo District Chart Title (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = SELECTEDVALUE('Geo Analysis Buttons'[Analysis_Type])",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[English]),            ",
+              "        'Report Titles'[Entity] = \"Geo_Top_10_District_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "d520061e-0b01-41e5-8986-d3c8edc13d78"
+          },
+          {
+            "name": "Geo Sub District Chart Title (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = SELECTEDVALUE('Geo Analysis Buttons'[Analysis_Type])",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[English]),            ",
+              "        'Report Titles'[Entity] = \"Geo_Top_10_Sub_District_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "668efb78-2d3d-4906-8a03-18bfdf13ed93"
+          },
+          {
+            "name": "Geo Province Card Title (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "VAR Analysis_Type =",
+              "    COALESCE(",
+              "        SELECTEDVALUE(",
+              "            'Geo Analysis Buttons'[Analysis_Type]",
+              "        ),",
+              "        1",
+              "    )    ",
+              "RETURN        ",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[English]",
+              "        ), ",
+              "        'Report Titles'[Analysis Type] = Analysis_Type,",
+              "        'Report Titles'[Entity] = \"Geo_Province_Chart_Title\"        ",
+              "    )",
+              ""
+            ],
+            "lineageTag": "ff3c17f8-db23-4c0f-92bc-6bd3da415797"
+          },
+          {
+            "name": "Geo Postcode Chart Title (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = SELECTEDVALUE('Geo Analysis Buttons'[Analysis_Type])",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[English]),            ",
+              "        'Report Titles'[Entity] = \"Geo_Postcode_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "95d0ac39-b580-4971-8123-9d3376d27ff4"
+          },
+          {
+            "name": "Geo Total Card Title (TH)",
+            "expression": [
+              "",
+              "VAR Analysis_Type =",
+              "    COALESCE(",
+              "        SELECTEDVALUE(",
+              "            'Geo Analysis Buttons'[Analysis_Type]",
+              "        ),",
+              "        1",
+              "    )    ",
+              "RETURN        ",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[Thai]",
+              "        ), ",
+              "        'Report Titles'[Analysis Type] = Analysis_Type,",
+              "        'Report Titles'[Entity] = \"Geo_Total_Card_Title\"        ",
+              "    )",
+              ""
+            ],
+            "lineageTag": "e50330ff-4da3-4e15-acf1-63955186d037"
+          },
+          {
+            "name": "Geo Province Card Title (TH)",
+            "expression": [
+              "",
+              "VAR Analysis_Type =",
+              "    COALESCE(",
+              "        SELECTEDVALUE(",
+              "            'Geo Analysis Buttons'[Analysis_Type]",
+              "        ),",
+              "        1",
+              "    )    ",
+              "RETURN        ",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[Thai]",
+              "        ), ",
+              "        'Report Titles'[Analysis Type] = Analysis_Type,",
+              "        'Report Titles'[Entity] = \"Geo_Province_Chart_Title\"        ",
+              "    )",
+              ""
+            ],
+            "lineageTag": "f3b4c336-aca3-45f3-93b1-c059d04601f2"
           }
         ],
         "partitions": [

@@ -4,14 +4,14 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 0,
+        "x": 265,
         "y": 0
       },
       "nodes": [
         {
           "location": {
             "x": 821,
-            "y": 498.75
+            "y": 530.301071285023
           },
           "nodeIndex": "Address Details",
           "nodeLineageTag": "b6f83f74-20c8-413e-b362-36f1d6e71e00",
@@ -24,7 +24,7 @@
         {
           "location": {
             "x": 487,
-            "y": 501.75
+            "y": 533.301071285023
           },
           "nodeIndex": "Data",
           "nodeLineageTag": "d2edb2f4-4f2a-41a5-b4b8-94c2ab876634",
@@ -37,7 +37,7 @@
         {
           "location": {
             "x": 2024.5999717712402,
-            "y": 702.75
+            "y": 734.301071285023
           },
           "nodeIndex": "_Geographic Analysis Measures",
           "nodeLineageTag": "73aab386-4963-4ee5-bd4b-73436a37396e",
@@ -50,7 +50,7 @@
         {
           "location": {
             "x": 1279.2000122070313,
-            "y": 701.75
+            "y": 733.301071285023
           },
           "nodeIndex": "_Geographic Text Display Measures",
           "nodeLineageTag": "d7c35ff6-4c77-424e-8fee-0d0704a51c5d",
@@ -63,7 +63,7 @@
         {
           "location": {
             "x": 1527,
-            "y": 700.75
+            "y": 732.301071285023
           },
           "nodeIndex": "Geo Analysis Buttons",
           "nodeLineageTag": "777f7ced-7ab4-472c-9b39-e4ab627db6a7",
@@ -76,7 +76,7 @@
         {
           "location": {
             "x": 2275.0000305175781,
-            "y": 700.75
+            "y": 732.301071285023
           },
           "nodeIndex": "Report Titles",
           "nodeLineageTag": "98e1d0d7-6cb0-48b8-a2b1-f8bdfb05a17f",
@@ -89,7 +89,7 @@
         {
           "location": {
             "x": 1777.6000366210938,
-            "y": 703.75
+            "y": 735.301071285023
           },
           "nodeIndex": "_Common Text",
           "nodeLineageTag": "d8a7b345-3517-48f2-8412-febb9b1d72b4",
@@ -102,23 +102,10 @@
         {
           "location": {
             "x": 638.98308663578746,
-            "y": 63.257444610200594
+            "y": 94.80851589522365
           },
           "nodeIndex": "District_Lookup",
           "nodeLineageTag": "9299f9f5-258b-485d-9cf5-fd54c1684dbf",
-          "size": {
-            "height": 173,
-            "width": 234
-          },
-          "zIndex": 1
-        },
-        {
-          "location": {
-            "x": 1458.5660878223562,
-            "y": 72.405302040155
-          },
-          "nodeIndex": "Industry Group Lookup",
-          "nodeLineageTag": "1eb51c81-b71e-41ec-be93-ff80a0fbe75e",
           "size": {
             "height": 173,
             "width": 234
@@ -127,8 +114,21 @@
         },
         {
           "location": {
+            "x": 1458.5660878223562,
+            "y": 103.95637332517805
+          },
+          "nodeIndex": "Industry Group Lookup",
+          "nodeLineageTag": "1eb51c81-b71e-41ec-be93-ff80a0fbe75e",
+          "size": {
+            "height": 173,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
             "x": 1729.9830866357875,
-            "y": 67.390412819754062
+            "y": 98.941484104777118
           },
           "nodeIndex": "Industry Sub-Category",
           "nodeLineageTag": "5383ccaa-0a1f-4163-8f65-ea970295acff",
@@ -141,7 +141,7 @@
         {
           "location": {
             "x": 372.80159781427892,
-            "y": 63.102142570046112
+            "y": 94.653213855069168
           },
           "nodeIndex": "Province_Lookup",
           "nodeLineageTag": "7c0da0a5-ef72-44ec-935c-0359d0ee71a5",
@@ -149,12 +149,12 @@
             "height": 176,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 14
         },
         {
           "location": {
             "x": 892.60003662109375,
-            "y": 66.24255538979935
+            "y": 97.7936266748224
           },
           "nodeIndex": "Sub-district_Lookup",
           "nodeLineageTag": "b22446ff-2fac-4927-9d8c-d73b4819afab",
@@ -167,7 +167,7 @@
         {
           "location": {
             "x": 1147.1846478289726,
-            "y": 66.250000000000028
+            "y": 97.801071285023085
           },
           "nodeIndex": "TSIC Lookup",
           "nodeLineageTag": "dca80745-b9f3-4f44-9cbc-c47c7277e48c",
