@@ -4,7 +4,7 @@
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"eec data file\",\"District_Lookup\",\"Industry Group Lookup\",\"Industry Sub-Category\",\"Province_Lookup\",\"Sub-district_Lookup\",\"TSIC Lookup\",\"Tambon A\",\"Tambon B\",\"Tambon C\",\"Tambon D\",\"Tambon E-F\",\"Tambon H-I\",\"Tambon K\",\"Tambon L\",\"Tambon M\",\"Tambon N-O\",\"Tambon P\",\"Tambon R\",\"Tambon S\",\"Tambon T\",\"Tambon U-V\",\"Tambon W\",\"Tambon Y\",\"Sub-districts (All Thailand)\",\"Missing Tambon\",\"ISIC-BOT Rev#4\",\"Transform eec data file\",\"Data\",\"Address Details\",\"_Geographic Analysis Measures\",\"Geo Analysis Buttons\",\"_Geographic Text Display Measures\",\"Report Titles\",\"_Common Text\"]"
+        "value": "[\"eec data file\",\"District_Lookup\",\"Industry Group Lookup\",\"Industry Sub-Category\",\"Province_Lookup\",\"Sub-district_Lookup\",\"TSIC Lookup\",\"Tambon A\",\"Tambon B\",\"Tambon C\",\"Tambon D\",\"Tambon E-F\",\"Tambon H-I\",\"Tambon K\",\"Tambon L\",\"Tambon M\",\"Tambon N-O\",\"Tambon P\",\"Tambon R\",\"Tambon S\",\"Tambon T\",\"Tambon U-V\",\"Tambon W\",\"Tambon Y\",\"Sub-districts (All Thailand)\",\"Missing Tambon\",\"ISIC-BOT Rev#4\",\"Transform eec data file\",\"Data\",\"Address Details\",\"_Geographic Analysis Measures\",\"_Geographic Text Display Measures\",\"Report Titles\",\"Wkf Analysis Buttons (EN)\",\"Wkf Analysis Buttons (TH)\",\"Geo Analysis Buttons (EN)\",\"_Common Text\",\"Geo Analysis Buttons (TH)\",\"Inv Analysis Buttons (EN)\",\"Inv Analysis Buttons (TH)\",\"_Investment Analysis Measures\",\"_Investment Text Display Measures\",\"_Workforce Analysis Measures\",\"_Workforce Text Display Measures\",\"Ind Analysis Buttons\"]"
       },
       {
         "name": "__PBI_TimeIntelligenceEnabled",
@@ -12,7 +12,7 @@
       },
       {
         "name": "PBIDesktopVersion",
-        "value": "2.119.870.0 (23.07)"
+        "value": "2.119.986.0 (23.07)"
       },
       {
         "name": "PBI_ProTooling",
@@ -672,6 +672,15 @@
           }
         ],
         "folder": "Dimension Queries"
+      },
+      {
+        "annotations": [
+          {
+            "name": "PBI_QueryGroupOrder",
+            "value": "4"
+          }
+        ],
+        "folder": "Analysis Types"
       }
     ],
     "relationships": [
@@ -695,6 +704,20 @@
         "fromTable": "Data",
         "toColumn": "sub-district code",
         "toTable": "Sub-district_Lookup"
+      },
+      {
+        "name": "4b6e1277-f8de-401d-89bc-245a7d7597a0",
+        "fromColumn": "Industry Group",
+        "fromTable": "Data",
+        "toColumn": "Group",
+        "toTable": "Industry Group Lookup"
+      },
+      {
+        "name": "50d220db-2ab0-4b1c-801a-4e6ca7ff2498",
+        "fromColumn": "sub category",
+        "fromTable": "Data",
+        "toColumn": "sub category",
+        "toTable": "Industry Sub-Category"
       }
     ],
     "sourceQueryCulture": "en-US",
@@ -1157,7 +1180,7 @@
               }
             ],
             "dataType": "int64",
-            "formatString": "0",
+            "formatString": "#,0",
             "lineageTag": "a4d7b72d-3ce3-40e2-b02c-f00a729a1134",
             "sourceColumn": "Building area (sq m.)",
             "summarizeBy": "sum"
@@ -1369,7 +1392,7 @@
               }
             ],
             "dataType": "int64",
-            "formatString": "0",
+            "formatString": "#,0",
             "lineageTag": "38a9dfa6-78bd-4085-a166-79d32d75fa89",
             "sourceColumn": "factory area (sq.m.)",
             "summarizeBy": "sum"
@@ -1437,13 +1460,10 @@
               {
                 "name": "SummarizationSetBy",
                 "value": "Automatic"
-              },
-              {
-                "name": "PBI_FormatHint",
-                "value": "{\"isGeneralNumber\":true}"
               }
             ],
             "dataType": "double",
+            "formatString": "#,0",
             "lineageTag": "8bb5bb79-b70f-41dd-a7b8-648cffb2a9f9",
             "sourceColumn": "land value (M Baht)",
             "summarizeBy": "sum"
@@ -1960,19 +1980,6 @@
         ],
         "columns": [
           {
-            "name": "district",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "f268fc43-97c7-4de7-8f8e-ca946d58ad9e",
-            "sourceColumn": "district",
-            "summarizeBy": "none"
-          },
-          {
             "name": "district (EN)",
             "annotations": [
               {
@@ -2064,9 +2071,10 @@
                 "    #\"Renamed Columns3\" = Table.RenameColumns(#\"Replaced Value30\",{{\"district_index\", \"district_code\"}}),",
                 "    #\"Reordered Columns1\" = Table.ReorderColumns(#\"Renamed Columns3\",{\"district_code\", \"district (TH)\", \"district (EN)\"}),",
                 "    #\"Added Custom\" = Table.AddColumn(#\"Reordered Columns1\", \"district\", each [#\"district (TH)\"] & \" / \" & [#\"district (EN)\"]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Added Custom\",{{\"district\", type text}})",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Added Custom\",{{\"district\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"district\"})",
                 "in",
-                "    #\"Changed Type\""
+                "    #\"Removed Columns\""
               ],
               "type": "m"
             }
@@ -2074,11 +2082,15 @@
         ]
       },
       {
-        "name": "Geo Analysis Buttons",
+        "name": "Geo Analysis Buttons (EN)",
         "annotations": [
           {
             "name": "PBI_ResultType",
             "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
           }
         ],
         "columns": [
@@ -2097,7 +2109,7 @@
             "summarizeBy": "sum"
           },
           {
-            "name": "English",
+            "name": "EN",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -2110,47 +2122,174 @@
               }
             ],
             "dataType": "string",
-            "lineageTag": "dbd59905-e04d-4185-b95d-5077b6aa575b",
+            "lineageTag": "b6024685-2fc3-4f08-94f9-fc875a5c93d7",
             "sortByColumn": "Analysis_Type",
-            "sourceColumn": "English",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Thai",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "changedProperties": [
-              {
-                "property": "SortByColumn"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "e59fe8ab-420b-4f3d-97f6-78bd23729ff6",
-            "sortByColumn": "Analysis_Type",
-            "sourceColumn": "Thai",
+            "sourceColumn": "EN",
             "summarizeBy": "none"
           }
         ],
         "lineageTag": "777f7ced-7ab4-472c-9b39-e4ab627db6a7",
         "partitions": [
           {
-            "name": "Geo Analysis Buttons",
+            "name": "Geo Analysis Buttons (EN)",
             "mode": "import",
-            "queryGroup": "Data Queries",
+            "queryGroup": "Analysis Types",
             "source": {
               "expression": [
                 "let",
                 "    Source = Excel.Workbook(File.Contents(\"D:\\OneDrive\\Documents\\001 - Power BI & Data Visualisation\\In Development\\Active\\EEC Factory Analysis - Power BI Version\\Data\\BiLingual Text Strings.xlsx\"), null, true),",
                 "    #\"Geo Analysis Buttons_Sheet\" = Source{[Item=\"Geo Analysis Buttons\",Kind=\"Sheet\"]}[Data],",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Geo Analysis Buttons_Sheet\", [PromoteAllScalars=true]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Analysis_Type\", Int64.Type}, {\"English\", type text}, {\"ภาษาไทย\", type text}}),",
-                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"ภาษาไทย\", \"Thai\"}})",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Analysis_Type\", Int64.Type}, {\"EN\", type text}, {\"TH\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"TH\"}),",
+                "    #\"Sorted Rows\" = Table.Sort(#\"Removed Columns\",{{\"Analysis_Type\", Order.Ascending}})",
                 "in",
-                "    #\"Renamed Columns\""
+                "    #\"Sorted Rows\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Geo Analysis Buttons (TH)",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Analysis_Type",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "e10bf63a-466f-4e1e-a5e4-254ecacf022d",
+            "sourceColumn": "Analysis_Type",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "TH",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "SortByColumn"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "e6694300-2d85-4f2f-a4ca-18bb3b80732f",
+            "sortByColumn": "Analysis_Type",
+            "sourceColumn": "TH",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "62753ac4-175d-427c-a0d0-71d81637ca53",
+        "partitions": [
+          {
+            "name": "Geo Analysis Buttons (TH)",
+            "mode": "import",
+            "queryGroup": "Analysis Types",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"D:\\OneDrive\\Documents\\001 - Power BI & Data Visualisation\\In Development\\Active\\EEC Factory Analysis - Power BI Version\\Data\\BiLingual Text Strings.xlsx\"), null, true),",
+                "    #\"Geo Analysis Buttons_Sheet\" = Source{[Item=\"Geo Analysis Buttons\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Geo Analysis Buttons_Sheet\", [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Analysis_Type\", Int64.Type}, {\"EN\", type text}, {\"TH\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"EN\"}),",
+                "    #\"Sorted Rows\" = Table.Sort(#\"Removed Columns\",{{\"Analysis_Type\", Order.Ascending}})",
+                "in",
+                "    #\"Sorted Rows\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Ind Analysis Buttons",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Analysis Type",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "df359fea-feea-4406-996b-e7b3e2a72449",
+            "sourceColumn": "Analysis Type",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "EN",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "75a0e4f1-4475-4eaf-aac8-7df5a6d2ab7a",
+            "sourceColumn": "EN",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "TH",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "15f3e6f3-49c8-458b-bcca-7ce20c4548e5",
+            "sourceColumn": "TH",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "67ee7320-b46c-4a10-8b4a-83ab45e8b37b",
+        "partitions": [
+          {
+            "name": "Ind Analysis Buttons",
+            "mode": "import",
+            "queryGroup": "Data Source",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"D:\\OneDrive\\Documents\\001 - Power BI & Data Visualisation\\In Development\\Active\\EEC Factory Analysis - Power BI Version\\Data\\BiLingual Text Strings.xlsx\"), null, true),",
+                "    #\"Ind Analysis Buttons_Sheet\" = Source{[Item=\"Ind Analysis Buttons\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Ind Analysis Buttons_Sheet\", [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Analysis Type\", Int64.Type}, {\"EN\", type text}, {\"TH\", type text}})",
+                "in",
+                "    #\"Changed Type\""
               ],
               "type": "m"
             }
@@ -2163,22 +2302,13 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
           }
         ],
         "columns": [
-          {
-            "name": "Code",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "87198747-f873-44cf-9d7a-ff440614cc86",
-            "sourceColumn": "Code",
-            "summarizeBy": "none"
-          },
           {
             "name": "Group",
             "annotations": [
@@ -2193,33 +2323,7 @@
             "summarizeBy": "none"
           },
           {
-            "name": "Group Description English",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "79192aa7-a5c3-4243-8c7b-2885c932e4d9",
-            "sourceColumn": "Group Description English",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Group Description Thai",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "76003dc2-4b61-4a29-b45d-824db8fd3f0d",
-            "sourceColumn": "Group Description Thai",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "ISIC Description English",
+            "name": "Group (EN)",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -2228,11 +2332,11 @@
             ],
             "dataType": "string",
             "lineageTag": "bdd6b5af-b7cb-40be-a01d-ea69482109e5",
-            "sourceColumn": "ISIC Description English",
+            "sourceColumn": "Group (EN)",
             "summarizeBy": "none"
           },
           {
-            "name": "ISIC Description Thai",
+            "name": "Group (TH)",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -2241,7 +2345,7 @@
             ],
             "dataType": "string",
             "lineageTag": "3a656811-a152-4b79-88e9-ff4fe6fa841c",
-            "sourceColumn": "ISIC Description Thai",
+            "sourceColumn": "Group (TH)",
             "summarizeBy": "none"
           }
         ],
@@ -2254,17 +2358,36 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = #\"TSIC Lookup\",",
-                "    #\"Split Column by Character Transition\" = Table.SplitColumn(Source, \"TSIC\", Splitter.SplitTextByCharacterTransition((c) => not List.Contains({\"0\"..\"9\"}, c), {\"0\"..\"9\"}), {\"TSIC.1\", \"TSIC.2\"}),",
-                "    #\"Filtered Rows\" = Table.SelectRows(#\"Split Column by Character Transition\", each ([TSIC.2] = \"0000\")),",
-                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Filtered Rows\",{\"TSIC.2\", \"TSIC.1\"}),",
-                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Removed Columns\",{\"Code\", \"Group\", \"ISIC Description Thai\", \"ISIC Description English\", \"sub category\", \"Section\", \"Sub-Section\", \"Parent\"}),",
-                "    #\"Removed Columns1\" = Table.RemoveColumns(#\"Reordered Columns\",{\"sub category\", \"Section\", \"Sub-Section\",  \"Parent\"}),",
-                "    #\"Added Custom\" = Table.AddColumn(#\"Removed Columns1\", \"Group Description Thai\", each [Group] & \": \" & [ISIC Description Thai]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Added Custom\",{{\"Group Description Thai\", type text}}),",
-                "    #\"Added Custom1\" = Table.AddColumn(#\"Changed Type\", \"Group Description English\", each [Group] & \": \" &[ISIC Description English])",
+                "    Source = #\"ISIC-BOT Rev#4\",",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Code\", type text}, {\"Activity / Activity BOT\", type text}, {\"sub activity\", type text}, {\"ISIC Description Thai\", type text}, {\"Sub-Section\", type text}, {\"Section\", type text}, {\"sub category\", type text}, {\"Group\", type text}, {\"ISIC Description English\", type text}, {\"Parent\", type text}}),",
+                "    #\"Removed Type Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Service\", \"Wholesale\", \"Retail\", \"Goods Production\"}),",
+                "    #\"Filled Down\" = Table.FillDown(#\"Removed Type Columns\",{\"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"Activity / Activity BOT\"}),",
+                "    #\"Replaced with null values\" = Table.ReplaceValue(#\"Filled Down\",\"-\",null,Replacer.ReplaceValue,{\"Code\", \"ISIC Description Thai\", \"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"Activity / Activity BOT\", \"Adjusted TSIC\", \"sub activity\", \"ISIC Description English\", \"Parent\"}),    ",
+                "    #\"Removed Activity Column\" = Table.RemoveColumns(#\"Replaced with null values\",{\"Activity / Activity BOT\"}),",
+                "    #\"Changed Adjusted TSIC Type\" = Table.TransformColumnTypes(#\"Removed Activity Column\",{{\"Adjusted TSIC\", type text}}),",
+                "    #\"Renamed Adjusted TSIC Column\" = Table.RenameColumns(#\"Changed Adjusted TSIC Type\",{{\"Adjusted TSIC\", \"TSIC\"}}),",
+                "    #\"Removed Bottom Rows\" = Table.RemoveLastN(#\"Renamed Adjusted TSIC Column\",2),",
+                "    #\"Removed Duplicates in TSIC Column\" = Table.Distinct(#\"Removed Bottom Rows\", {\"TSIC\"}),    ",
+                "    #\"Removed sub activity Column\" = Table.RemoveColumns(#\"Removed Duplicates in TSIC Column\",{\"sub activity\"}),",
+                "    #\"Changed All Columns to Text\" = Table.TransformColumnTypes(#\"Removed sub activity Column\",{{\"Code\", type text}, {\"TSIC\", type text}, {\"ISIC Description Thai\", type text}, {\"ISIC Description English\", type text}, {\"Group\", type text}, {\"sub category\", type text}, {\"Section\", type text}, {\"Sub-Section\", type text}, {\"Parent\", type text}}),",
+                "    #\"Sorted Rows\" = Table.Sort(#\"Changed All Columns to Text\",{{\"TSIC\", Order.Ascending}}),",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Sorted Rows\",{\"Code\", \"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"TSIC\", \"Parent\", \"ISIC Description Thai\", \"ISIC Description English\"}),",
+                "    #\"Renamed Description Columns\" = Table.RenameColumns(#\"Reordered Columns\",{{\"ISIC Description Thai\", \"TISIC Description (TH)\"}, {\"ISIC Description English\", \"TISIC Description (EN)\"}}),",
+                "    //Source = #\"TSIC Lookup\",",
+                "    #\"Split TSIC Column\" = Table.SplitColumn(\"Renamed Description Columns\", \"TSIC\", Splitter.SplitTextByCharacterTransition((c) => not List.Contains({\"0\"..\"9\"}, c), {\"0\"..\"9\"}), {\"TSIC.1\", \"TSIC.2\"}),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Split TSIC Column\", each ([TSIC.2] = \"0000\")),",
+                "    #\"Removed Unused TSIC Columns\" = Table.RemoveColumns(#\"Filtered Rows\",{\"TSIC.2\", \"TSIC.1\"}),",
+                "    #\"Final Reorder Columns\" = Table.ReorderColumns(#\"Removed Columns\",{\"Code\", \"Group\", \"ISIC Description Thai\", \"ISIC Description English\", \"sub category\", \"Section\", \"Sub-Section\", \"Parent\"}),",
+                "    #\"Removed Sub Category Columns\" = Table.RemoveColumns(#\"Reordered Columns\",{\"sub category\", \"Section\", \"Sub-Section\",  \"Parent\"}),",
+                "    #\"Added Custom\" = Table.AddColumn(#\"Removed Sub Category Columns\", \"Group Description Thai\", each [Group] & \": \" & [ISIC Description Thai]),",
+                "    #\"Changed Group Desc TH Type\" = Table.TransformColumnTypes(#\"Added Custom\",{{\"Group Description Thai\", type text}}),",
+                "    #\"Added Group Desc EN\" = Table.AddColumn(#\"Changed Group Desc TH Type\", \"Group Description English\", each [Group] & \": \" &[ISIC Description English]),",
+                "    #\"Removed Group Description Columns\" = Table.RemoveColumns(#\"Added Group Desc EN\",{\"Group Description Thai\", \"Group Description English\", \"Code\"}),",
+                "    #\"Final Renamed Columns\" = Table.RenameColumns(#\"Removed Group Description Columns\",{{\"ISIC Description Thai\", \"Group (TH)\"}, {\"ISIC Description English\", \"Group (EN)\"}}),",
+                "    #\"Removed Duplicates\" = Table.Distinct(#\"Final Renamed Columns\", {\"Group\"}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Removed Duplicates\",{\"TSIC\"})",
                 "in",
-                "    #\"Added Custom1\""
+                "    #\"Removed Columns\""
               ],
               "type": "m"
             }
@@ -2281,33 +2404,7 @@
         ],
         "columns": [
           {
-            "name": "Code",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "5f5bec81-9cf0-4932-80b3-a6dc49b31f7d",
-            "sourceColumn": "Code",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Group",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "a5d12a63-15eb-4488-a365-87e649f5d45f",
-            "sourceColumn": "Group",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "ISIC Description English",
+            "name": "Sub Category (EN)",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -2316,11 +2413,11 @@
             ],
             "dataType": "string",
             "lineageTag": "dbf62e29-3dbf-4a59-8044-61d6dbdf81aa",
-            "sourceColumn": "ISIC Description English",
+            "sourceColumn": "Sub Category (EN)",
             "summarizeBy": "none"
           },
           {
-            "name": "ISIC Description Thai",
+            "name": "Sub Category (TH)",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -2329,46 +2426,7 @@
             ],
             "dataType": "string",
             "lineageTag": "e0cf4dcd-a3e9-4bab-b6ca-ac4c9df7be8e",
-            "sourceColumn": "ISIC Description Thai",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Sub Category Description English",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "81563ea1-60d2-4faa-add3-8153cff55dfa",
-            "sourceColumn": "Sub Category Description English",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Sub Category Description Thai",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "973b4a48-e505-4014-b7be-5cd794d5d8b4",
-            "sourceColumn": "Sub Category Description Thai",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "TSIC",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "954cd926-dffa-4d26-8fe6-9b2e590e3dd4",
-            "sourceColumn": "TSIC",
+            "sourceColumn": "Sub Category (TH)",
             "summarizeBy": "none"
           },
           {
@@ -2394,18 +2452,175 @@
             "source": {
               "expression": [
                 "let",
-                "    Source = #\"TSIC Lookup\",",
-                "    #\"Removed Columns\" = Table.RemoveColumns(Source,{\"Section\", \"Sub-Section\", \"Parent\"}),",
-                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Removed Columns\",{\"sub category\", \"Code\", \"TSIC\", \"ISIC Description Thai\", \"ISIC Description English\", \"Group\"}),",
-                "    #\"Filtered Rows1\" = Table.SelectRows(#\"Reordered Columns\", each [sub category] <> \"0\"),",
-                "    #\"Removed Duplicates\" = Table.Distinct(#\"Filtered Rows1\", {\"sub category\"}),",
-                "    #\"Added Custom\" = Table.AddColumn(#\"Removed Duplicates\", \"Sub Category Description Thai\", each [sub category] & \" : \" &[ISIC Description Thai]),",
-                "    #\"Added Custom1\" = Table.AddColumn(#\"Added Custom\", \"Sub Category Description English\", each [sub category] & \" : \" &[ISIC Description English]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Added Custom1\",{{\"Sub Category Description Thai\", type text}, {\"Sub Category Description English\", type text}}),",
-                "    #\"Sorted Rows\" = Table.Sort(#\"Changed Type\",{{\"sub category\", Order.Ascending}}),",
-                "    #\"Filtered Rows\" = Table.SelectRows(#\"Sorted Rows\", each ([sub category] <> null))",
+                "Source = #\"ISIC-BOT Rev#4\",",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Code\", type text}, {\"Activity / Activity BOT\", type text}, {\"sub activity\", type text}, {\"ISIC Description Thai\", type text}, {\"Sub-Section\", type text}, {\"Section\", type text}, {\"sub category\", type text}, {\"Group\", type text}, {\"ISIC Description English\", type text}, {\"Parent\", type text}}),",
+                "    #\"Removed Type Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Service\", \"Wholesale\", \"Retail\", \"Goods Production\"}),",
+                "    #\"Filled Down\" = Table.FillDown(#\"Removed Type Columns\",{\"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"Activity / Activity BOT\"}),",
+                "    #\"Replaced with null values\" = Table.ReplaceValue(#\"Filled Down\",\"-\",null,Replacer.ReplaceValue,{\"Code\", \"ISIC Description Thai\", \"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"Activity / Activity BOT\", \"Adjusted TSIC\", \"sub activity\", \"ISIC Description English\", \"Parent\"}),    ",
+                "    #\"Removed Activity Column\" = Table.RemoveColumns(#\"Replaced with null values\",{\"Activity / Activity BOT\"}),",
+                "    #\"Changed Adjusted TSIC Type\" = Table.TransformColumnTypes(#\"Removed Activity Column\",{{\"Adjusted TSIC\", type text}}),",
+                "    #\"Renamed Adjusted TSIC Column\" = Table.RenameColumns(#\"Changed Adjusted TSIC Type\",{{\"Adjusted TSIC\", \"TSIC\"}}),",
+                "    #\"Removed Bottom Rows\" = Table.RemoveLastN(#\"Renamed Adjusted TSIC Column\",2),",
+                "    #\"Removed Duplicates in TSIC Column\" = Table.Distinct(#\"Removed Bottom Rows\", {\"TSIC\"}),    ",
+                "    #\"Removed sub activity Column\" = Table.RemoveColumns(#\"Removed Duplicates in TSIC Column\",{\"sub activity\"}),",
+                "    #\"Changed All Columns to Text\" = Table.TransformColumnTypes(#\"Removed sub activity Column\",{{\"Code\", type text}, {\"TSIC\", type text}, {\"ISIC Description Thai\", type text}, {\"ISIC Description English\", type text}, {\"Group\", type text}, {\"sub category\", type text}, {\"Section\", type text}, {\"Sub-Section\", type text}, {\"Parent\", type text}}),",
+                "    #\"Sorted Rows\" = Table.Sort(#\"Changed All Columns to Text\",{{\"TSIC\", Order.Ascending}}),",
+                "    #\"Initial Reordered Columns\" = Table.ReorderColumns(#\"Sorted Rows\",{\"Code\", \"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"TSIC\", \"Parent\", \"ISIC Description Thai\", \"ISIC Description English\"}),",
+                "    #\"Renamed Description Columns\" = Table.RenameColumns(#\"Initial Reordered Columns\",{{\"ISIC Description Thai\", \"TSIC Description (TH)\"}, {\"ISIC Description English\", \"TSIC Description (EN)\"}}),    ",
+                "    //Source = #\"TSIC Lookup\",",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Renamed Description Columns\",{\"Section\", \"Sub-Section\", \"Parent\"}),",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Removed Columns\",{\"sub category\", \"Code\", \"TSIC\", \"TSIC Description (TH)\", \"TSIC Description (EN)\", \"Group\"}),",
+                "    #\"Filtered Sub Category\" = Table.SelectRows(#\"Reordered Columns\", each [sub category] <> \"0\"),",
+                "    #\"Removed Duplicates\" = Table.Distinct(#\"Filtered Sub Category\", {\"sub category\"}),",
+                "    #\"Added Group Desc TH\" = Table.AddColumn(#\"Removed Duplicates\", \"Sub Category Description Thai\", each [sub category] & \" : \" &[ISIC Description Thai]),",
+                "    #\"Added Group Desc EN\" = Table.AddColumn(#\"Added Group Desc TH\", \"Sub Category Description English\", each [sub category] & \" : \" &[ISIC Description English]),",
+                "    #\"Changed Sub Category Desc Types\" = Table.TransformColumnTypes(#\"Added Group Desc EN\",{{\"Sub Category Description Thai\", type text}, {\"Sub Category Description English\", type text}}),",
+                "    #\"Sorted Sub Category Asc\" = Table.Sort(#\"Changed Sub Category Desc Types\",{{\"sub category\", Order.Ascending}}),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Sorted Sub Category Asc\", each ([sub category] <> null)),",
+                "    #\"Removed Unneeded Columns\" = Table.RemoveColumns(#\"Filtered Rows\",{\"Code\", \"TSIC\", \"Group\", \"Sub Category Description Thai\", \"Sub Category Description English\"}),",
+                "    #\"Final Renamed Columns\" = Table.RenameColumns(#\"Removed Unneeded Columns\",{{\"TSIC Description (TH)\", \"Sub Category (TH)\"}, {\"TSIC Description (EN)\", \"Sub Category (EN)\"}})",
                 "in",
-                "    #\"Filtered Rows\""
+                "    #\"Final Renamed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Inv Analysis Buttons (EN)",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Analysis_Type",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "163f1b86-b1b6-4177-8ac6-6f51faf2c177",
+            "sourceColumn": "Analysis_Type",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "EN",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "SortByColumn"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "2299dc5e-693b-4c4d-af0f-fdfdf8666def",
+            "sortByColumn": "Analysis_Type",
+            "sourceColumn": "EN",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "139ed83c-6688-4de2-bae0-808dede88da3",
+        "partitions": [
+          {
+            "name": "Inv Analysis Buttons (EN)",
+            "mode": "import",
+            "queryGroup": "Analysis Types",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"D:\\OneDrive\\Documents\\001 - Power BI & Data Visualisation\\In Development\\Active\\EEC Factory Analysis - Power BI Version\\Data\\BiLingual Text Strings.xlsx\"), null, true),",
+                "    #\"Inv Analysis Buttons_Sheet\" = Source{[Item=\"Inv Analysis Buttons\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Inv Analysis Buttons_Sheet\", [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Analysis_Type\", Int64.Type}, {\"EN\", type text}, {\"TH\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"TH\"}),",
+                "    #\"Sorted Rows\" = Table.Sort(#\"Removed Columns\",{{\"Analysis_Type\", Order.Ascending}})",
+                "in",
+                "    #\"Sorted Rows\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Inv Analysis Buttons (TH)",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Analysis_Type",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "b45fdc3f-fba3-465b-b2c3-71523e48b89f",
+            "sourceColumn": "Analysis_Type",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "TH",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "SortByColumn"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "e7a14290-b282-4e09-b5a8-12a6f8120462",
+            "sortByColumn": "Analysis_Type",
+            "sourceColumn": "TH",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "98543ff3-f82f-4c9a-93cb-3da0f0db682d",
+        "partitions": [
+          {
+            "name": "Inv Analysis Buttons (TH)",
+            "mode": "import",
+            "queryGroup": "Analysis Types",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"D:\\OneDrive\\Documents\\001 - Power BI & Data Visualisation\\In Development\\Active\\EEC Factory Analysis - Power BI Version\\Data\\BiLingual Text Strings.xlsx\"), null, true),",
+                "    #\"Inv Analysis Buttons_Sheet\" = Source{[Item=\"Inv Analysis Buttons\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Inv Analysis Buttons_Sheet\", [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Analysis_Type\", Int64.Type}, {\"EN\", type text}, {\"TH\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"EN\"}),",
+                "    #\"Sorted Rows\" = Table.Sort(#\"Removed Columns\",{{\"Analysis_Type\", Order.Ascending}})",
+                "in",
+                "    #\"Sorted Rows\""
               ],
               "type": "m"
             }
@@ -2529,7 +2744,7 @@
             "summarizeBy": "sum"
           },
           {
-            "name": "English",
+            "name": "EN",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -2538,7 +2753,7 @@
             ],
             "dataType": "string",
             "lineageTag": "54601867-463c-44e0-9523-4adb31f7f5ce",
-            "sourceColumn": "English",
+            "sourceColumn": "EN",
             "summarizeBy": "none"
           },
           {
@@ -2555,7 +2770,7 @@
             "summarizeBy": "none"
           },
           {
-            "name": "Thai",
+            "name": "TH",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -2563,8 +2778,8 @@
               }
             ],
             "dataType": "string",
-            "lineageTag": "8be9107a-0c55-49cd-901b-5a6b3011e8da",
-            "sourceColumn": "Thai",
+            "lineageTag": "ca1631e1-6c72-4b88-9623-d03c97baaf73",
+            "sourceColumn": "TH",
             "summarizeBy": "none"
           }
         ],
@@ -2580,8 +2795,8 @@
                 "    Source = Excel.Workbook(File.Contents(\"D:\\OneDrive\\Documents\\001 - Power BI & Data Visualisation\\In Development\\Active\\EEC Factory Analysis - Power BI Version\\Data\\BiLingual Text Strings.xlsx\"), null, true),",
                 "    #\"Report Titles_Sheet\" = Source{[Item=\"Report Titles\",Kind=\"Sheet\"]}[Data],",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Report Titles_Sheet\", [PromoteAllScalars=true]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Entity\", type text}, {\"Analysis Type\", Int64.Type}, {\"English\", type text}, {\"ภาษาไทย\", type text}}),",
-                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"ภาษาไทย\", \"Thai\"}})",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Entity\", type text}, {\"Analysis Type\", Int64.Type}, {\"English\", type text}, {\"Thai\", type text}}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"English\", \"EN\"}, {\"Thai\", \"TH\"}})",
                 "in",
                 "    #\"Renamed Columns\""
               ],
@@ -2681,33 +2896,7 @@
         ],
         "columns": [
           {
-            "name": "Code",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "85a0b8cb-b29d-45a5-b0e4-4cc3b34ff318",
-            "sourceColumn": "Code",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Group",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "091bbc4b-83b2-4276-9243-d6de290b1d18",
-            "sourceColumn": "Group",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "ISIC Description English",
+            "name": "TISIC Description (EN)",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -2716,59 +2905,7 @@
             ],
             "dataType": "string",
             "lineageTag": "589e3f4c-4015-4195-b515-0322e942d75b",
-            "sourceColumn": "ISIC Description English",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "ISIC Description Thai",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "3f4ab680-4c20-4a7d-8fa6-d91f345d380c",
-            "sourceColumn": "ISIC Description Thai",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Parent",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "71399039-94fc-42f3-906c-b52a8260e2b1",
-            "sourceColumn": "Parent",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Section",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "20f6cf09-eb57-4ab8-a96f-d6e35e8c1d57",
-            "sourceColumn": "Section",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Sub-Section",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "4758ac46-1286-4e2d-8bcb-f6c7a58a1ed2",
-            "sourceColumn": "Sub-Section",
+            "sourceColumn": "TISIC Description (EN)",
             "summarizeBy": "none"
           },
           {
@@ -2785,7 +2922,7 @@
             "summarizeBy": "none"
           },
           {
-            "name": "sub category",
+            "name": "TSIC Description (TH)",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -2793,8 +2930,8 @@
               }
             ],
             "dataType": "string",
-            "lineageTag": "62672ecc-7064-41cb-957e-07b2f0930c8d",
-            "sourceColumn": "sub category",
+            "lineageTag": "3f4ab680-4c20-4a7d-8fa6-d91f345d380c",
+            "sourceColumn": "TSIC Description (TH)",
             "summarizeBy": "none"
           }
         ],
@@ -2820,9 +2957,152 @@
                 "    #\"Removed sub activity Column\" = Table.RemoveColumns(#\"Removed Duplicates in TSIC Column\",{\"sub activity\"}),",
                 "    #\"Changed All Columns to Text\" = Table.TransformColumnTypes(#\"Removed sub activity Column\",{{\"Code\", type text}, {\"TSIC\", type text}, {\"ISIC Description Thai\", type text}, {\"ISIC Description English\", type text}, {\"Group\", type text}, {\"sub category\", type text}, {\"Section\", type text}, {\"Sub-Section\", type text}, {\"Parent\", type text}}),",
                 "    #\"Sorted Rows\" = Table.Sort(#\"Changed All Columns to Text\",{{\"TSIC\", Order.Ascending}}),",
-                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Sorted Rows\",{\"Code\", \"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"TSIC\", \"Parent\", \"ISIC Description Thai\", \"ISIC Description English\"})",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Sorted Rows\",{\"Code\", \"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"TSIC\", \"Parent\", \"ISIC Description Thai\", \"ISIC Description English\"}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Reordered Columns\",{{\"ISIC Description Thai\", \"TISIC Description (TH)\"}, {\"ISIC Description English\", \"TISIC Description (EN)\"}}),",
+                "    #\"Removed Columns1\" = Table.RemoveColumns(#\"Renamed Columns\",{\"Code\", \"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"Parent\"}),",
+                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Removed Columns1\",{{\"TISIC Description (TH)\", \"TSIC Description (TH)\"}})",
                 "in",
-                "    #\"Reordered Columns\""
+                "    #\"Renamed Columns1\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Wkf Analysis Buttons (EN)",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Analysis Type",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "8031bbb1-8929-4e97-b59b-e39e7a3f9c58",
+            "sourceColumn": "Analysis Type",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "EN",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "SortByColumn"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "f03e8cd5-6054-4e88-b0e7-1b1b5a6513ba",
+            "sortByColumn": "Analysis Type",
+            "sourceColumn": "EN",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "d9e38a57-f4cb-4c91-b0f0-734909763c80",
+        "partitions": [
+          {
+            "name": "Wkf Analysis Buttons (EN)",
+            "mode": "import",
+            "queryGroup": "Analysis Types",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"D:\\OneDrive\\Documents\\001 - Power BI & Data Visualisation\\In Development\\Active\\EEC Factory Analysis - Power BI Version\\Data\\BiLingual Text Strings.xlsx\"), null, true),",
+                "    #\"Wkf Analysis Buttons_Sheet\" = Source{[Item=\"Wkf Analysis Buttons\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Wkf Analysis Buttons_Sheet\", [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Analysis Type\", Int64.Type}, {\"EN\", type text}, {\"TH\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"TH\"}),",
+                "    #\"Sorted Rows\" = Table.Sort(#\"Removed Columns\",{{\"Analysis Type\", Order.Ascending}})",
+                "in",
+                "    #\"Sorted Rows\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Wkf Analysis Buttons (TH)",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Analysis Type",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "c8bebb8a-072e-4017-81fe-d3df2fb787af",
+            "sourceColumn": "Analysis Type",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "TH",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "SortByColumn"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "4e42023d-fb10-4a04-8172-799a81450911",
+            "sortByColumn": "Analysis Type",
+            "sourceColumn": "TH",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "57c512ab-b095-4761-a3c2-9671acfb3922",
+        "partitions": [
+          {
+            "name": "Wkf Analysis Buttons (TH)",
+            "mode": "import",
+            "queryGroup": "Analysis Types",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"D:\\OneDrive\\Documents\\001 - Power BI & Data Visualisation\\In Development\\Active\\EEC Factory Analysis - Power BI Version\\Data\\BiLingual Text Strings.xlsx\"), null, true),",
+                "    #\"Wkf Analysis Buttons_Sheet\" = Source{[Item=\"Wkf Analysis Buttons\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Wkf Analysis Buttons_Sheet\", [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Analysis Type\", Int64.Type}, {\"EN\", type text}, {\"TH\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"EN\"}),",
+                "    #\"Sorted Rows\" = Table.Sort(#\"Removed Columns\",{{\"Analysis Type\", Order.Ascending}})",
+                "in",
+                "    #\"Sorted Rows\""
               ],
               "type": "m"
             }
@@ -2841,10 +3121,11 @@
         "measures": [
           {
             "name": "Province Slicer Title (EN)",
+            "displayFolder": "EN",
             "expression": [
               "",
               "CALCULATE(",
-              "    MIN('Report Titles'[English]),            ",
+              "    MIN('Report Titles'[EN]),            ",
               "    'Report Titles'[Entity] = \"Province_Slicer_Title\"        ",
               ")"
             ],
@@ -2852,10 +3133,11 @@
           },
           {
             "name": "Analysis Types Slicer Title (EN)",
+            "displayFolder": "EN",
             "expression": [
               "",
               "CALCULATE(",
-              "    MIN('Report Titles'[English]),            ",
+              "    MIN('Report Titles'[EN]),            ",
               "    'Report Titles'[Entity] = \"Analysis_Types_Slicer_Title\"    ",
               ")"
             ],
@@ -2863,10 +3145,11 @@
           },
           {
             "name": "Analysis Types Slicer Title (TH)",
+            "displayFolder": "TH",
             "expression": [
               "",
               "CALCULATE(",
-              "    MIN('Report Titles'[Thai]),            ",
+              "    MIN('Report Titles'[TH]),            ",
               "    'Report Titles'[Entity] = \"Analysis_Types_Slicer_Title\"    ",
               ")"
             ],
@@ -2874,10 +3157,11 @@
           },
           {
             "name": "Province Slicer Title (TH)",
+            "displayFolder": "TH",
             "expression": [
               "",
               "CALCULATE(",
-              "    MIN('Report Titles'[Thai]),            ",
+              "    MIN('Report Titles'[TH]),            ",
               "    'Report Titles'[Entity] = \"Province_Slicer_Title\"        ",
               ")"
             ],
@@ -2885,10 +3169,11 @@
           },
           {
             "name": "Dashboard Title (EN)",
+            "displayFolder": "EN",
             "expression": [
               "",
               "CALCULATE(",
-              "    MIN('Report Titles'[English]),            ",
+              "    MIN('Report Titles'[EN]),            ",
               "    'Report Titles'[Entity] = \"Dashboard_Title\"    ",
               ")"
             ],
@@ -2896,11 +3181,12 @@
           },
           {
             "name": "Geographic Navigation (EN)",
+            "displayFolder": "EN",
             "expression": [
               "",
               "CALCULATE(",
               "    MIN(",
-              "        'Report Titles'[English]",
+              "        'Report Titles'[EN]",
               "    ),",
               "    'Report Titles'[Entity] = \"Geographic_analysis\"",
               ")"
@@ -2909,11 +3195,12 @@
           },
           {
             "name": "Investment Navigation (EN)",
+            "displayFolder": "EN",
             "expression": [
               "",
               "CALCULATE(",
               "    MIN(",
-              "        'Report Titles'[English]",
+              "        'Report Titles'[EN]",
               "    ),",
               "    'Report Titles'[Entity] = \"Investment_analysis\"",
               ")"
@@ -2922,11 +3209,12 @@
           },
           {
             "name": "Workforce Navigation (EN)",
+            "displayFolder": "EN",
             "expression": [
               "",
               "CALCULATE(",
               "    MIN(",
-              "        'Report Titles'[English]",
+              "        'Report Titles'[EN]",
               "    ),",
               "    'Report Titles'[Entity] = \"Workforce_analysis\"",
               ")"
@@ -2935,10 +3223,11 @@
           },
           {
             "name": "Address Navigation (EN)",
+            "displayFolder": "EN",
             "expression": [
               "",
               "CALCULATE(",
-              "    MIN('Report Titles'[English]),            ",
+              "    MIN('Report Titles'[EN]),            ",
               "    'Report Titles'[Entity] = \"Address_Details\"        ",
               ")"
             ],
@@ -2946,11 +3235,12 @@
           },
           {
             "name": "Information Navigation (EN)",
+            "displayFolder": "EN",
             "expression": [
               "",
               "CALCULATE(",
               "    MIN(",
-              "        'Report Titles'[English]",
+              "        'Report Titles'[EN]",
               "    ),",
               "    'Report Titles'[Entity] = \"Information\"",
               ")"
@@ -2959,10 +3249,11 @@
           },
           {
             "name": "Address Navigation (TH)",
+            "displayFolder": "TH",
             "expression": [
               "",
               "CALCULATE(",
-              "    MIN('Report Titles'[Thai]),            ",
+              "    MIN('Report Titles'[TH]),            ",
               "    'Report Titles'[Entity] = \"Address_Details\"        ",
               ")"
             ],
@@ -2970,10 +3261,11 @@
           },
           {
             "name": "Dashboard Title (TH)",
+            "displayFolder": "TH",
             "expression": [
               "",
               "CALCULATE(",
-              "    MIN('Report Titles'[Thai]),            ",
+              "    MIN('Report Titles'[TH]),            ",
               "    'Report Titles'[Entity] = \"Dashboard_Title\"    ",
               ")"
             ],
@@ -2981,11 +3273,12 @@
           },
           {
             "name": "Geographic Navigation (TH)",
+            "displayFolder": "TH",
             "expression": [
               "",
               "CALCULATE(",
               "    MIN(",
-              "        'Report Titles'[Thai]",
+              "        'Report Titles'[TH]",
               "    ),",
               "    'Report Titles'[Entity] = \"Geographic_analysis\"",
               ")"
@@ -2994,11 +3287,12 @@
           },
           {
             "name": "Information Navigation (TH)",
+            "displayFolder": "TH",
             "expression": [
               "",
               "CALCULATE(",
               "    MIN(",
-              "        'Report Titles'[Thai]",
+              "        'Report Titles'[TH]",
               "    ),",
               "    'Report Titles'[Entity] = \"Information\"",
               ")"
@@ -3007,11 +3301,12 @@
           },
           {
             "name": "Investment Navigation (TH)",
+            "displayFolder": "TH",
             "expression": [
               "",
               "CALCULATE(",
               "    MIN(",
-              "        'Report Titles'[Thai]",
+              "        'Report Titles'[TH]",
               "    ),",
               "    'Report Titles'[Entity] = \"Investment_analysis\"",
               ")"
@@ -3020,11 +3315,12 @@
           },
           {
             "name": "Workforce Navigation (TH)",
+            "displayFolder": "TH",
             "expression": [
               "",
               "CALCULATE(",
               "    MIN(",
-              "        'Report Titles'[Thai]",
+              "        'Report Titles'[TH]",
               "    ),",
               "    'Report Titles'[Entity] = \"Workforce_analysis\"",
               ")"
@@ -3061,31 +3357,18 @@
         "lineageTag": "73aab386-4963-4ee5-bd4b-73436a37396e",
         "measures": [
           {
-            "name": "Geo Total All Factories",
-            "expression": [
-              "",
-              "CALCULATE(",
-              "    COUNT(",
-              "        Data[post code]",
-              "    ),",
-              "    All(Data)",
-              ")"
-            ],
-            "formatString": "#,0",
-            "lineageTag": "0571462a-5dff-4977-957a-b07c51ce59df"
-          },
-          {
-            "name": "Geo Province Total (Million Sqm)",
+            "name": "Geo Total (Large Units) (EN)",
+            "displayFolder": "EN",
             "expression": [
               "",
               "    VAR Analysis_Type = ",
               "        COALESCE(",
               "            SELECTEDVALUE(",
-              "                'Geo Analysis Buttons'[Analysis_Type]",
+              "                'Geo Analysis Buttons (EN)'[Analysis_Type]",
               "            ),",
               "            1,",
               "            SELECTEDVALUE(",
-              "                'Geo Analysis Buttons'[Analysis_Type]",
+              "                'Geo Analysis Buttons (EN)'[Analysis_Type]",
               "            )",
               "        )",
               "    VAR CalculatedValue = ",
@@ -3114,17 +3397,59 @@
             "lineageTag": "6fe36e20-e853-4a86-8666-95837de9d3c0"
           },
           {
-            "name": "Geo District Total (Small Units)",
+            "name": "Geo Total (Small Units) (EN)",
+            "displayFolder": "EN",
             "expression": [
               "",
               "    VAR Analysis_Type = ",
               "        COALESCE(",
               "            SELECTEDVALUE(",
-              "                'Geo Analysis Buttons'[Analysis_Type]",
+              "                'Geo Analysis Buttons (EN)'[Analysis_Type]",
               "            ),",
               "            1,",
               "            SELECTEDVALUE(",
-              "                'Geo Analysis Buttons'[Analysis_Type]",
+              "                'Geo Analysis Buttons (EN)'[Analysis_Type]",
+              "            )",
+              "        )",
+              "    VAR CalculatedValue = ",
+              "        SWITCH(",
+              "            TRUE(),",
+              "            Analysis_Type = 1,                   ",
+              "                COUNT(",
+              "                    Data[post code]",
+              "                ),                    ",
+              "            Analysis_Type = 2,                 ",
+              "                SUM(",
+              "                    'Data'[factory area (sq.m.)]",
+              "                ),                    ",
+              "            Analysis_Type = 3,                 ",
+              "                SUM(",
+              "                Data[Building area (sq m.)]",
+              "                )",
+              "                    ",
+              "        )",
+              "    RETURN",
+              "       COALESCE(",
+              "            CalculatedValue,",
+              "            0",
+              "        )"
+            ],
+            "formatString": "#,0",
+            "lineageTag": "99320ab9-0963-4c09-8433-ab7aabc59b1e"
+          },
+          {
+            "name": "Geo Total (Small Units) (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "    VAR Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Geo Analysis Buttons (TH)'[Analysis_Type]",
+              "            ),",
+              "            1,",
+              "            SELECTEDVALUE(",
+              "                'Geo Analysis Buttons (TH)'[Analysis_Type]",
               "            )",
               "        )",
               "    VAR CalculatedValue = ",
@@ -3151,7 +3476,83 @@
               "        )"
             ],
             "formatString": "#,0",
-            "lineageTag": "99320ab9-0963-4c09-8433-ab7aabc59b1e"
+            "lineageTag": "794a3523-e50d-4a4f-98a2-c22baacb57ba"
+          },
+          {
+            "name": "Geo Total (Large Units) (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "    VAR Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Geo Analysis Buttons (TH)'[Analysis_Type]",
+              "            ),",
+              "            1,",
+              "            SELECTEDVALUE(",
+              "                'Geo Analysis Buttons (TH)'[Analysis_Type]",
+              "            )",
+              "        )",
+              "    VAR CalculatedValue = ",
+              "        SWITCH(",
+              "            TRUE(),        ",
+              "            Analysis_Type = 1,                  ",
+              "                COUNT(",
+              "                    Data[post code]",
+              "                ),",
+              "            Analysis_Type = 2,                             ",
+              "                SUM(",
+              "                    'Data'[factory area (sq Mm)]",
+              "                ),",
+              "            Analysis_Type = 3,                                 ",
+              "                SUM(",
+              "                    'Data'[building area (sq Mm)]",
+              "                )",
+              "        )",
+              "    RETURN",
+              "         COALESCE(",
+              "            CalculatedValue,",
+              "            0",
+              "        )"
+            ],
+            "formatString": "#,0",
+            "lineageTag": "09d710a1-101b-46f8-a13b-ca975d93de0d"
+          },
+          {
+            "name": "Geographic Value (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "    IF(        ",
+              "        '_Geographic Analysis Measures'[Geo Total (Large Units) (EN)] <> ",
+              "        INT('_Geographic Analysis Measures'[Geo Total (Large Units) (EN)]),",
+              "        FORMAT(",
+              "            '_Geographic Analysis Measures'[Geo Total (Large Units) (EN)],\"#,##0.0\"",
+              "        ),",
+              "        FORMAT(",
+              "            '_Geographic Analysis Measures'[Geo Total (Large Units) (EN)],\"#,###\"",
+              "       )",
+              "    )"
+            ],
+            "lineageTag": "8347cf24-1cb1-4410-89fe-3030ff8d93f2"
+          },
+          {
+            "name": "Geographic Value (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "    IF(        ",
+              "        '_Geographic Analysis Measures'[Geo Total (Large Units) (TH)] <> ",
+              "        INT('_Geographic Analysis Measures'[Geo Total (Large Units) (TH)]),",
+              "        FORMAT(",
+              "            '_Geographic Analysis Measures'[Geo Total (Large Units) (TH)],\"#,##0.0\"",
+              "        ),",
+              "        FORMAT(",
+              "            '_Geographic Analysis Measures'[Geo Total (Large Units) (TH)],\"#,###\"",
+              "        )",
+              "    )"
+            ],
+            "lineageTag": "43111528-d64f-4fb0-9b91-d99719b29ed6"
           }
         ],
         "partitions": [
@@ -3190,14 +3591,14 @@
               "VAR Analysis_Type =",
               "    COALESCE(",
               "        SELECTEDVALUE(",
-              "            'Geo Analysis Buttons'[Analysis_Type]",
+              "            'Geo Analysis Buttons (EN)'[Analysis_Type]",
               "        ),",
               "        1",
               "    )    ",
               "RETURN        ",
               "    CALCULATE(",
               "        MIN(",
-              "            'Report Titles'[English]",
+              "            'Report Titles'[EN]",
               "        ), ",
               "        'Report Titles'[Analysis Type] = Analysis_Type,",
               "        'Report Titles'[Entity] = \"Geo_Total_Card_Title\"        ",
@@ -3212,11 +3613,17 @@
             "expression": [
               "",
               "VAR",
-              "    Selected_Analysis_Type = SELECTEDVALUE('Geo Analysis Buttons'[Analysis_Type])",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Geo Analysis Buttons (EN)'[Analysis_Type]",
+              "            ),",
+              "            1",
+              "        )                            ",
               "RETURN",
               "    CALCULATE(",
-              "        MIN('Report Titles'[English]),            ",
-              "        'Report Titles'[Entity] = \"Geo_Top_10_District_Chart_Title\",",
+              "        MIN('Report Titles'[EN]),            ",
+              "        'Report Titles'[Entity] = \"Geo_District_Chart_Title\",",
               "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
               "    )"
             ],
@@ -3228,11 +3635,15 @@
             "expression": [
               "",
               "VAR",
-              "    Selected_Analysis_Type = SELECTEDVALUE('Geo Analysis Buttons'[Analysis_Type])",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE('Geo Analysis Buttons (EN)'[Analysis_Type]),",
+              "            1",
+              "        )",
               "RETURN",
               "    CALCULATE(",
-              "        MIN('Report Titles'[English]),            ",
-              "        'Report Titles'[Entity] = \"Geo_Top_10_Sub_District_Chart_Title\",",
+              "        MIN('Report Titles'[EN]),            ",
+              "        'Report Titles'[Entity] = \"Geo_Sub_District_Chart_Title\",",
               "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
               "    )"
             ],
@@ -3246,14 +3657,14 @@
               "VAR Analysis_Type =",
               "    COALESCE(",
               "        SELECTEDVALUE(",
-              "            'Geo Analysis Buttons'[Analysis_Type]",
+              "            'Geo Analysis Buttons (EN)'[Analysis_Type]",
               "        ),",
               "        1",
               "    )    ",
               "RETURN        ",
               "    CALCULATE(",
               "        MIN(",
-              "            'Report Titles'[English]",
+              "            'Report Titles'[EN]",
               "        ), ",
               "        'Report Titles'[Analysis Type] = Analysis_Type,",
               "        'Report Titles'[Entity] = \"Geo_Province_Chart_Title\"        ",
@@ -3268,10 +3679,16 @@
             "expression": [
               "",
               "VAR",
-              "    Selected_Analysis_Type = SELECTEDVALUE('Geo Analysis Buttons'[Analysis_Type])",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Geo Analysis Buttons (EN)'[Analysis_Type]",
+              "            ),",
+              "            1",
+              "        )    ",
               "RETURN",
               "    CALCULATE(",
-              "        MIN('Report Titles'[English]),            ",
+              "        MIN('Report Titles'[EN]),            ",
               "        'Report Titles'[Entity] = \"Geo_Postcode_Chart_Title\",",
               "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
               "    )"
@@ -3280,19 +3697,20 @@
           },
           {
             "name": "Geo Total Card Title (TH)",
+            "displayFolder": "TH",
             "expression": [
               "",
               "VAR Analysis_Type =",
               "    COALESCE(",
               "        SELECTEDVALUE(",
-              "            'Geo Analysis Buttons'[Analysis_Type]",
+              "            'Geo Analysis Buttons (TH)'[Analysis_Type]",
               "        ),",
               "        1",
               "    )    ",
               "RETURN        ",
               "    CALCULATE(",
               "        MIN(",
-              "            'Report Titles'[Thai]",
+              "            'Report Titles'[TH]",
               "        ), ",
               "        'Report Titles'[Analysis Type] = Analysis_Type,",
               "        'Report Titles'[Entity] = \"Geo_Total_Card_Title\"        ",
@@ -3303,19 +3721,20 @@
           },
           {
             "name": "Geo Province Card Title (TH)",
+            "displayFolder": "TH",
             "expression": [
               "",
               "VAR Analysis_Type =",
               "    COALESCE(",
               "        SELECTEDVALUE(",
-              "            'Geo Analysis Buttons'[Analysis_Type]",
+              "            'Geo Analysis Buttons (TH)'[Analysis_Type]",
               "        ),",
               "        1",
               "    )    ",
               "RETURN        ",
               "    CALCULATE(",
               "        MIN(",
-              "            'Report Titles'[Thai]",
+              "            'Report Titles'[TH]",
               "        ), ",
               "        'Report Titles'[Analysis Type] = Analysis_Type,",
               "        'Report Titles'[Entity] = \"Geo_Province_Chart_Title\"        ",
@@ -3323,11 +3742,1098 @@
               ""
             ],
             "lineageTag": "f3b4c336-aca3-45f3-93b1-c059d04601f2"
+          },
+          {
+            "name": "Geo District Chart Title (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Geo Analysis Buttons (TH)'[Analysis_Type]",
+              "            ),",
+              "            1",
+              "        )",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[TH]),            ",
+              "        'Report Titles'[Entity] = \"Geo_District_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "41e31cb3-32b0-4db6-937f-6cbdb02c918c"
+          },
+          {
+            "name": "Geo Sub District Chart Title (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Geo Analysis Buttons (TH)'[Analysis_Type]",
+              "            ),",
+              "            1",
+              "        )",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[TH]),            ",
+              "        'Report Titles'[Entity] = \"Geo_Sub_District_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "2dbc9878-9c84-41ed-813b-1e25cf44e793"
+          },
+          {
+            "name": "Geo Postcode Chart Title (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Geo Analysis Buttons (TH)'[Analysis_Type]",
+              "            ),",
+              "            1",
+              "        )    ",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[TH]),            ",
+              "        'Report Titles'[Entity] = \"Geo_Postcode_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "3e06120b-0e20-4dbb-b925-19ae94f53ed4"
           }
         ],
         "partitions": [
           {
             "name": "_Geographic Text Display Measures",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Column1\"})",
+                "in",
+                "    #\"Removed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "_Investment Analysis Measures",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "lineageTag": "9e24ce9a-e9df-47d9-8ed3-fe700829cba2",
+        "measures": [
+          {
+            "name": "Inv Total (Small Units) (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "    VAR Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Inv Analysis Buttons (EN)'[Analysis_Type]",
+              "            ),",
+              "            1,",
+              "            SELECTEDVALUE(",
+              "                'Inv Analysis Buttons (EN)'[Analysis_Type]",
+              "            )",
+              "        )",
+              "    VAR CalculatedValue = ",
+              "        SWITCH(",
+              "            TRUE(),",
+              "            Analysis_Type = 1,                  ",
+              "                SUM(",
+              "                    'Data'[building value]",
+              "                ),",
+              "            Analysis_Type = 2,                             ",
+              "                SUM(",
+              "                    'Data'[land value]",
+              "                ),",
+              "            Analysis_Type = 3,                                 ",
+              "                SUM(",
+              "                    Data[machine cost]",
+              "                ),",
+              "            Analysis_Type = 4,",
+              "                SUM(",
+              "                    Data[working capital] ",
+              "                ),",
+              "            Analysis_Type = 5,",
+              "                SUM(",
+              "                    Data[total investment]",
+              "                )",
+              "                    ",
+              "        )",
+              "    RETURN",
+              "        COALESCE(",
+              "            CalculatedValue,",
+              "            0",
+              "        )"
+            ],
+            "formatString": "#,0",
+            "lineageTag": "a4fdfe79-3bd2-4894-aa31-275efdca41c8"
+          },
+          {
+            "name": "Inv Total (Large Units) (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "    VAR Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Inv Analysis Buttons (TH)'[Analysis_Type]",
+              "            ),",
+              "            1,",
+              "            SELECTEDVALUE(",
+              "                'Inv Analysis Buttons (TH)'[Analysis_Type]",
+              "            )",
+              "        )",
+              "    VAR CalculatedValue = ",
+              "        SWITCH(",
+              "            TRUE(),        ",
+              "            Analysis_Type = 1,                  ",
+              "                SUM(",
+              "                    'Data'[building value (M Baht)]",
+              "                ),",
+              "            Analysis_Type = 2,                             ",
+              "                SUM(",
+              "                    'Data'[land value (M Baht)]",
+              "                ),",
+              "            Analysis_Type = 3,                                 ",
+              "                SUM(",
+              "                    Data[Machine Cost (M Baht)]",
+              "                ),",
+              "            Analysis_Type = 4,",
+              "                SUM(",
+              "                    Data[Working Capital (M Baht)]",
+              "                ),",
+              "            Analysis_Type = 5,",
+              "                SUM(",
+              "                    Data[Total Investment (M Baht)]",
+              "                )",
+              "        )",
+              "    RETURN",
+              "         COALESCE(",
+              "            CalculatedValue,",
+              "            0",
+              "        )"
+            ],
+            "formatString": "#,0",
+            "lineageTag": "604fad6e-d162-4627-85f6-9647bbc4ceeb"
+          },
+          {
+            "name": "Inv Total (Large Units) (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "    VAR Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Inv Analysis Buttons (EN)'[Analysis_Type]",
+              "            ),",
+              "            1,",
+              "            SELECTEDVALUE(",
+              "                'Inv Analysis Buttons (EN)'[Analysis_Type]",
+              "            )",
+              "        )",
+              "    VAR CalculatedValue = ",
+              "        SWITCH(",
+              "            TRUE(),        ",
+              "            Analysis_Type = 1,                  ",
+              "                SUM(",
+              "                    'Data'[building value (M Baht)]",
+              "                ),",
+              "            Analysis_Type = 2,                             ",
+              "                SUM(",
+              "                    'Data'[land value (M Baht)]",
+              "                ),",
+              "            Analysis_Type = 3,                                 ",
+              "                SUM(",
+              "                    Data[Machine Cost (M Baht)]",
+              "                ),",
+              "            Analysis_Type = 4,",
+              "                SUM(",
+              "                    Data[Working Capital (M Baht)]",
+              "                ),",
+              "            Analysis_Type = 5,",
+              "                SUM(",
+              "                    Data[Total Investment (M Baht)]",
+              "                )",
+              "        )",
+              "    RETURN",
+              "            COALESCE(",
+              "                CalculatedValue,",
+              "                0                ",
+              "        )"
+            ],
+            "formatString": "#,0",
+            "lineageTag": "bc9a12a7-a42a-486c-bac7-bbbca7d5dca3"
+          },
+          {
+            "name": "Inv Total (Small Units) (THJ)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "    VAR Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Inv Analysis Buttons (TH)'[Analysis_Type]",
+              "            ),",
+              "            1,",
+              "            SELECTEDVALUE(",
+              "                'Inv Analysis Buttons (TH)'[Analysis_Type]",
+              "            )",
+              "        )",
+              "    VAR CalculatedValue = ",
+              "        SWITCH(",
+              "            TRUE(),",
+              "            Analysis_Type = 1,                   ",
+              "                COUNT(",
+              "                    Data[post code]",
+              "                ),                    ",
+              "            Analysis_Type = 2,                 ",
+              "                SUM(",
+              "                    'Data'[factory area (sq.m.)]",
+              "                ),                    ",
+              "            Analysis_Type = 3,                 ",
+              "                SUM(",
+              "                Data[Building area (sq m.)]",
+              "                )",
+              "                    ",
+              "        )",
+              "    RETURN",
+              "        COALESCE(",
+              "            CalculatedValue,",
+              "            0",
+              "        )"
+            ],
+            "formatString": "#,0",
+            "lineageTag": "6224933e-b1fa-424c-8977-c8da9924fbbc"
+          },
+          {
+            "name": "Investment Value (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "IF(        ",
+              "    '_Investment Analysis Measures'[Inv Total (Large Units) (EN)] <> ",
+              "    INT('_Investment Analysis Measures'[Inv Total (Large Units) (EN)]),",
+              "    FORMAT(",
+              "        '_Investment Analysis Measures'[Inv Total (Large Units) (EN)],\"#,##0.0\"",
+              "    ),",
+              "    FORMAT(",
+              "        '_Investment Analysis Measures'[Inv Total (Large Units) (EN)],\"#,###\"",
+              "    )",
+              ")    "
+            ],
+            "lineageTag": "61548adc-e7d8-4c4a-b514-bbe9edd0c808"
+          },
+          {
+            "name": "Investment Value (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "    IF(        ",
+              "        '_Investment Analysis Measures'[Inv Total (Large Units) (TH)] <> ",
+              "        INT('_Investment Analysis Measures'[Inv Total (Large Units) (TH)]),",
+              "        FORMAT(",
+              "            '_Investment Analysis Measures'[Inv Total (Large Units) (TH)],\"#,##0.0\"",
+              "        ),",
+              "        FORMAT(",
+              "            '_Investment Analysis Measures'[Inv Total (Large Units) (TH)],\"#,###\"",
+              "       )",
+              "    )"
+            ],
+            "lineageTag": "2920dd24-bc56-4419-a88f-2ed66e88273d"
+          },
+          {
+            "name": "Inv Large Total Text (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "FORMAT(",
+              "    '_Investment Analysis Measures'[Inv Total (Large Units) (EN)],",
+              "    \"#,##0\"",
+              ")"
+            ],
+            "lineageTag": "92492a85-d5f4-4315-abcb-f07d4e3d176f"
+          },
+          {
+            "name": "Inv Large Total Text (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "FORMAT(",
+              "    '_Investment Analysis Measures'[Inv Total (Large Units) (TH)],",
+              "    \"#,##0\"",
+              ")"
+            ],
+            "lineageTag": "b3783393-737b-4cc5-81b7-3f3dd3b9c808"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "_Investment Analysis Measures",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Column1\"})",
+                "in",
+                "    #\"Removed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "_Investment Text Display Measures",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "lineageTag": "dac0e926-4b0d-43f2-a6bc-b4c9620be3ce",
+        "measures": [
+          {
+            "name": "Inv Total Card Title (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "VAR Analysis_Type =",
+              "    COALESCE(",
+              "        SELECTEDVALUE(",
+              "            'Inv Analysis Buttons (EN)'[Analysis_Type]",
+              "        ),",
+              "        1",
+              "    )    ",
+              "RETURN        ",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[EN]",
+              "        ), ",
+              "        'Report Titles'[Analysis Type] = Analysis_Type,",
+              "        'Report Titles'[Entity] = \"Inv_Total_Card_Title\"        ",
+              "    )",
+              ""
+            ],
+            "lineageTag": "37de202e-23a6-48d0-9ca8-e17cd0cf0365"
+          },
+          {
+            "name": "Inv Province Card Title (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "VAR Analysis_Type =",
+              "    COALESCE(",
+              "        SELECTEDVALUE(",
+              "            'Inv Analysis Buttons (EN)'[Analysis_Type]",
+              "        ),",
+              "        1",
+              "    )    ",
+              "RETURN        ",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[EN]",
+              "        ), ",
+              "        'Report Titles'[Analysis Type] = Analysis_Type,",
+              "        'Report Titles'[Entity] = \"Inv_Province_Chart_Title\"        ",
+              "    )",
+              ""
+            ],
+            "lineageTag": "0f61242c-2cd7-4ba3-86d4-0bfc0d12fdf1"
+          },
+          {
+            "name": "Inv District Chart Title (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Inv Analysis Buttons (EN)'[Analysis_Type]",
+              "            ),",
+              "            1",
+              "        )                            ",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[EN]),            ",
+              "        'Report Titles'[Entity] = \"Inv_District_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "7ed28183-131e-4548-a699-7f977122931f"
+          },
+          {
+            "name": "Inv Sub District Chart Title (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE('Inv Analysis Buttons (EN)'[Analysis_Type]),",
+              "            1",
+              "        )",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[EN]),            ",
+              "        'Report Titles'[Entity] = \"Inv_Sub-District_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "96082053-2510-4ff5-b5e7-4318ace44ffd"
+          },
+          {
+            "name": "Inv Postcode Chart Title (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Inv Analysis Buttons (EN)'[Analysis_Type]",
+              "            ),",
+              "            1",
+              "        )    ",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[EN]),            ",
+              "        'Report Titles'[Entity] = \"Inv_Postcode_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "50eddc7d-3559-4d7a-9d79-956b599012ba"
+          },
+          {
+            "name": "Inv District Chart Title (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Inv Analysis Buttons (TH)'[Analysis_Type]",
+              "            ),",
+              "            1",
+              "        )                            ",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[TH]),            ",
+              "        'Report Titles'[Entity] = \"Inv_District_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "51684aaf-33e5-46a4-abdb-ef85cc948bcc"
+          },
+          {
+            "name": "Inv Sub District Chart Title (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE('Inv Analysis Buttons (TH)'[Analysis_Type]),",
+              "            1",
+              "        )",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[TH]),            ",
+              "        'Report Titles'[Entity] = \"Inv_Sub-District_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "fe42e36f-556c-4aae-a54e-c097f3901dff"
+          },
+          {
+            "name": "Inv Postcode Chart Title (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Inv Analysis Buttons (TH)'[Analysis_Type]",
+              "            ),",
+              "            1",
+              "        )    ",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[TH]),            ",
+              "        'Report Titles'[Entity] = \"Inv_Postcode_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "f11c8e9c-b7db-409d-a43b-1e18a25a51b7"
+          },
+          {
+            "name": "Inv Province Card Title (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "VAR Analysis_Type =",
+              "    COALESCE(",
+              "        SELECTEDVALUE(",
+              "            'Inv Analysis Buttons (TH)'[Analysis_Type]",
+              "        ),",
+              "        1",
+              "    )    ",
+              "RETURN        ",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[TH]",
+              "        ), ",
+              "        'Report Titles'[Analysis Type] = Analysis_Type,",
+              "        'Report Titles'[Entity] = \"Inv_Province_Chart_Title\"        ",
+              "    )",
+              ""
+            ],
+            "lineageTag": "72750f40-ae12-4dc8-911a-bc5ca27e22ba"
+          },
+          {
+            "name": "Inv Total Card Title (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "VAR Analysis_Type =",
+              "    COALESCE(",
+              "        SELECTEDVALUE(",
+              "            'Inv Analysis Buttons (TH)'[Analysis_Type]",
+              "        ),",
+              "        1",
+              "    )    ",
+              "RETURN        ",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[TH]",
+              "        ), ",
+              "        'Report Titles'[Analysis Type] = Analysis_Type,",
+              "        'Report Titles'[Entity] = \"Inv_Total_Card_Title\"        ",
+              "    )",
+              ""
+            ],
+            "lineageTag": "d335f9d9-92f0-4208-b1b4-ecf6d251b2bd"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "_Investment Text Display Measures",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Column1\"})",
+                "in",
+                "    #\"Removed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "_Workforce Analysis Measures",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "lineageTag": "03e33e44-6245-4f90-9040-5fe390ba27e7",
+        "measures": [
+          {
+            "name": "Workforce Total (EN)",
+            "expression": [
+              "",
+              "    VAR Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Wkf Analysis Buttons (EN)'[Analysis Type]",
+              "            ),",
+              "            1,",
+              "            SELECTEDVALUE(",
+              "                'Wkf Analysis Buttons (EN)'[Analysis Type]",
+              "            )",
+              "        )",
+              "    VAR CalculatedValue = ",
+              "        SWITCH(",
+              "            TRUE(),",
+              "            Analysis_Type = 1,                   ",
+              "                SUM(",
+              "                    'Data'[total workers]",
+              "                ),                    ",
+              "            Analysis_Type = 2,                 ",
+              "                SUM(",
+              "                    'Data'[male]",
+              "                ),                    ",
+              "            Analysis_Type = 3,                 ",
+              "                SUM(",
+              "                    'Data'[female]",
+              "                )",
+              "                    ",
+              "        )",
+              "    RETURN",
+              "       COALESCE(",
+              "            CalculatedValue,",
+              "            0",
+              "       )",
+              "        "
+            ],
+            "formatString": "#,0",
+            "lineageTag": "b80f478c-e870-4892-90fd-3bcee53bf280"
+          },
+          {
+            "name": "Workforce Total (TH)",
+            "expression": [
+              "",
+              "    VAR Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Wkf Analysis Buttons (TH)'[Analysis Type]",
+              "            ),",
+              "            1,",
+              "            SELECTEDVALUE(",
+              "                'Wkf Analysis Buttons (TH)'[Analysis Type]",
+              "            )",
+              "        )",
+              "    VAR CalculatedValue = ",
+              "        SWITCH(",
+              "            TRUE(),",
+              "            Analysis_Type = 1,                   ",
+              "                SUM(",
+              "                    'Data'[total workers]",
+              "                ),                    ",
+              "            Analysis_Type = 2,                 ",
+              "                SUM(",
+              "                    'Data'[male]",
+              "                ),                    ",
+              "            Analysis_Type = 3,                 ",
+              "                SUM(",
+              "                    'Data'[female]",
+              "                )",
+              "                    ",
+              "        )",
+              "    RETURN",
+              "       COALESCE(",
+              "            CalculatedValue,",
+              "            0",
+              "        )"
+            ],
+            "formatString": "#,0",
+            "lineageTag": "f910b279-121e-48a6-a583-17c75160b577"
+          },
+          {
+            "name": "Male %",
+            "expression": [
+              "",
+              "    VAR TotalWorkers = ",
+              "        SUM(",
+              "            Data[total workers]",
+              "        )",
+              "    VAR Male = ",
+              "        SUM(",
+              "            Data[male]",
+              "        )",
+              "    RETURN",
+              "        DIVIDE(",
+              "            Male,",
+              "            TotalWorkers",
+              "        )",
+              ""
+            ],
+            "formatString": "0%;-0%;0%",
+            "lineageTag": "c73974aa-24ae-4234-931a-3d31f6210098"
+          },
+          {
+            "name": "Female %",
+            "expression": [
+              "",
+              "    VAR TotalWorkers = ",
+              "        SUM(",
+              "            Data[total workers]",
+              "        )",
+              "    VAR Female = ",
+              "        SUM(",
+              "            Data[female]",
+              "        )",
+              "    RETURN",
+              "        DIVIDE(",
+              "            Female,",
+              "            TotalWorkers",
+              "        )",
+              ""
+            ],
+            "formatString": "0%;-0%;0%",
+            "lineageTag": "e26192f2-259a-42af-a300-efc0a1e216d2"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "_Workforce Analysis Measures",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Column1\"})",
+                "in",
+                "    #\"Removed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "_Workforce Text Display Measures",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "lineageTag": "44d7130d-37fc-4355-b7bc-03374e929616",
+        "measures": [
+          {
+            "name": "Wkf Total Card Title (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "VAR Analysis_Type =",
+              "    COALESCE(",
+              "        SELECTEDVALUE(",
+              "            'Wkf Analysis Buttons (EN)'[Analysis Type]",
+              "        ),",
+              "        1",
+              "    )    ",
+              "RETURN        ",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[EN]",
+              "        ), ",
+              "        'Report Titles'[Analysis Type] = Analysis_Type,",
+              "        'Report Titles'[Entity] = \"Wkf_Total_Card_Title\"        ",
+              "    )",
+              ""
+            ],
+            "lineageTag": "09fb65b2-e97b-4198-81b3-96115ef78967"
+          },
+          {
+            "name": "Wkf Province Card Title (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "VAR Analysis_Type =",
+              "    COALESCE(",
+              "        SELECTEDVALUE(",
+              "            'Wkf Analysis Buttons (EN)'[Analysis Type]",
+              "        ),",
+              "        1",
+              "    )    ",
+              "RETURN        ",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[EN]",
+              "        ), ",
+              "        'Report Titles'[Analysis Type] = Analysis_Type,",
+              "        'Report Titles'[Entity] = \"Wkf_Province_Chart_Title\"        ",
+              "    )"
+            ],
+            "lineageTag": "16a96973-7868-4b55-a44b-01ef886ec53a"
+          },
+          {
+            "name": "Wkf District Chart Title (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Wkf Analysis Buttons (EN)'[Analysis Type]",
+              "            ),",
+              "            1",
+              "        )                            ",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[EN]),            ",
+              "        'Report Titles'[Entity] = \"Wkf_District_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "9f86bd77-fcc7-4793-80d8-c1e159c92fa7"
+          },
+          {
+            "name": "Wkf Gender Chart Title (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[EN]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Wkf_Gender_Chart_Title\"",
+              ")"
+            ],
+            "lineageTag": "f6adc1b2-fb20-4650-8f0e-3e7ba16b7ffc"
+          },
+          {
+            "name": "Wkf Gender Male Legend (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[EN]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Wkf_Gender_Male_Legend\")"
+            ],
+            "lineageTag": "da596467-60b5-4844-9f54-7f28407869c6"
+          },
+          {
+            "name": "Wkf Gender Female Legend EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[EN]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Wkf_Gender_Female_Legend\"",
+              ")"
+            ],
+            "lineageTag": "97ee5a54-37c0-4334-8f0d-605bc9b35ad2"
+          },
+          {
+            "name": "Wkf District Chart Title (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Wkf Analysis Buttons (TH)'[Analysis Type]",
+              "            ),",
+              "            1",
+              "        )                            ",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[TH]),            ",
+              "        'Report Titles'[Entity] = \"Wkf_District_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "779c2716-555d-472a-9c94-9f633b7827a0"
+          },
+          {
+            "name": "Wkf Gender Chart Title (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[TH]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Wkf_Gender_Chart_Title\"",
+              ")"
+            ],
+            "lineageTag": "fed213f0-ecb6-4134-9283-5eda4a6f2b14"
+          },
+          {
+            "name": "Wkf Gender Female Legend (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[TH]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Wkf_Gender_Female_Legend\"",
+              ")"
+            ],
+            "lineageTag": "bc6aa488-0bd3-4b66-b910-daf330bfa0c5"
+          },
+          {
+            "name": "Wkf Gender Male Legend (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[TH]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Wkf_Gender_Male_Legend\")"
+            ],
+            "lineageTag": "160c6114-9434-49a2-9a42-f3917441a566"
+          },
+          {
+            "name": "Wkf Province Card Title (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "VAR Analysis_Type =",
+              "    COALESCE(",
+              "        SELECTEDVALUE(",
+              "            'Wkf Analysis Buttons (TH)'[Analysis Type]",
+              "        ),",
+              "        1",
+              "    )    ",
+              "RETURN        ",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[TH]",
+              "        ), ",
+              "        'Report Titles'[Analysis Type] = Analysis_Type,",
+              "        'Report Titles'[Entity] = \"Wkf_Province_Chart_Title\"        ",
+              "    )"
+            ],
+            "lineageTag": "ebd8576d-a624-444c-85ec-4bdfeaa6784f"
+          },
+          {
+            "name": "Wkf Total Card Title (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "VAR Analysis_Type =",
+              "    COALESCE(",
+              "        SELECTEDVALUE(",
+              "            'Wkf Analysis Buttons (TH)'[Analysis Type]",
+              "        ),",
+              "        1",
+              "    )    ",
+              "RETURN        ",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[TH]",
+              "        ), ",
+              "        'Report Titles'[Analysis Type] = Analysis_Type,",
+              "        'Report Titles'[Entity] = \"Wkf_Total_Card_Title\"        ",
+              "    )",
+              ""
+            ],
+            "lineageTag": "446bb7d3-95a2-43dd-8beb-3b499a8ba6b3"
+          },
+          {
+            "name": "Wkf Postcode Chart Title (EN)",
+            "displayFolder": "EN",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Wkf Analysis Buttons (EN)'[Analysis Type]",
+              "            ),",
+              "            1",
+              "        )    ",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[EN]),            ",
+              "        'Report Titles'[Entity] = \"Wkf_Postcode_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "9b44f6a1-1751-4b6a-860f-324380f50ca5"
+          },
+          {
+            "name": "Wkf Postcode Chart Title (TH)",
+            "displayFolder": "TH",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Wkf Analysis Buttons (TH)'[Analysis Type]",
+              "            ),",
+              "            1",
+              "        )    ",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[TH]),            ",
+              "        'Report Titles'[Entity] = \"Wkf_Postcode_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "7b8aa6bc-d5b4-4a06-aaab-66e35aec0e89"
+          },
+          {
+            "name": "Wkf Sub District Chart Title (EN)",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Wkf Analysis Buttons (EN)'[Analysis Type]",
+              "            ),",
+              "            1",
+              "        )                            ",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[EN]),            ",
+              "        'Report Titles'[Entity] = \"Wkf_Sub-District_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "582a4dea-c531-4cb9-920a-8dac914a4109"
+          },
+          {
+            "name": "Wkf Sub District Chart Title (TH)",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Wkf Analysis Buttons (TH)'[Analysis Type]",
+              "            ),",
+              "            1",
+              "        )                            ",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[TH]),            ",
+              "        'Report Titles'[Entity] = \"Wkf_Sub-District_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "660a66d5-8199-4d63-955f-98141d03ba72"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "_Workforce Text Display Measures",
             "mode": "import",
             "source": {
               "expression": [
