@@ -3326,6 +3326,32 @@
               ")"
             ],
             "lineageTag": "bb8a51b8-a2e8-4f55-92a9-93e06057a819"
+          },
+          {
+            "name": "Industry Navigation (EN)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[EN]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Industry_Analysis\"",
+              ")"
+            ],
+            "lineageTag": "0008d9c3-5f4a-4df6-a3f3-8e8e5fc0e15c"
+          },
+          {
+            "name": "Industry Navigation (TH)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[TH]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Industry_Analysis\"",
+              ")"
+            ],
+            "lineageTag": "a0a29032-f0f2-457f-aacc-066d76d76b84"
           }
         ],
         "partitions": [
