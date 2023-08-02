@@ -4,7 +4,7 @@
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"eec data file\",\"District_Lookup\",\"Industry Group Lookup\",\"Industry Sub-Category\",\"Province_Lookup\",\"Sub-district_Lookup\",\"TSIC Lookup\",\"Tambon A\",\"Tambon B\",\"Tambon C\",\"Tambon D\",\"Tambon E-F\",\"Tambon H-I\",\"Tambon K\",\"Tambon L\",\"Tambon M\",\"Tambon N-O\",\"Tambon P\",\"Tambon R\",\"Tambon S\",\"Tambon T\",\"Tambon U-V\",\"Tambon W\",\"Tambon Y\",\"Sub-districts (All Thailand)\",\"Missing Tambon\",\"ISIC-BOT Rev#4\",\"Transform eec data file\",\"Data\",\"Address Details\",\"_Geographic Analysis Measures\",\"_Geographic Text Display Measures\",\"Report Titles\",\"Wkf Analysis Buttons (EN)\",\"Wkf Analysis Buttons (TH)\",\"Geo Analysis Buttons (EN)\",\"_Common Text\",\"Geo Analysis Buttons (TH)\",\"Inv Analysis Buttons (EN)\",\"Inv Analysis Buttons (TH)\",\"_Investment Analysis Measures\",\"_Investment Text Display Measures\",\"_Workforce Analysis Measures\",\"_Workforce Text Display Measures\",\"Ind Analysis Buttons\"]"
+        "value": "[\"eec data file\",\"District_Lookup\",\"Industry Group_Lookup\",\"Industry Sub-Category_Lookup\",\"Province_Lookup\",\"Sub-district_Lookup\",\"TSIC_Lookup\",\"Tambon A\",\"Tambon B\",\"Tambon C\",\"Tambon D\",\"Tambon E-F\",\"Tambon H-I\",\"Tambon K\",\"Tambon L\",\"Tambon M\",\"Tambon N-O\",\"Tambon P\",\"Tambon R\",\"Tambon S\",\"Tambon T\",\"Tambon U-V\",\"Tambon W\",\"Tambon Y\",\"Sub-districts (All Thailand)\",\"Missing Tambon\",\"ISIC-BOT Rev#4\",\"Transform eec data file\",\"Data\",\"_Geographic Analysis Measures\",\"_Geographic Text Display Measures\",\"Report Titles\",\"Ind Analysis Buttons (EN)\",\"Ind Analysis Buttons (TH)\",\"Wkf Analysis Buttons (EN)\",\"Wkf Analysis Buttons (TH)\",\"Geo Analysis Buttons (EN)\",\"_Common Text\",\"Geo Analysis Buttons (TH)\",\"Inv Analysis Buttons (EN)\",\"Inv Analysis Buttons (TH)\",\"_Investment Analysis Measures\",\"_Investment Text Display Measures\",\"_Workforce Analysis Measures\",\"_Workforce Text Display Measures\",\"_Industry Analysis Measures\",\"_Industry Text Display Measures\",\"_Information Page Measures\"]"
       },
       {
         "name": "__PBI_TimeIntelligenceEnabled",
@@ -586,9 +586,10 @@
           "let",
           "    Source = Csv.Document(Web.Contents(\"https://data.go.th/dataset/656b9ca7-10b5-4c33-87b0-188ed5fe4078/resource/b7acb5f0-e593-4437-a159-c3e761843fa8/download/eec.csv\"),[Delimiter=\",\", Columns=31, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
           "    #\"Trimmed Text\" = Table.TransformColumns(Source,{{\"Column1\", Text.Trim, type text}, {\"Column2\", Text.Trim, type text}, {\"Column3\", Text.Trim, type text}, {\"Column4\", Text.Trim, type text}, {\"Column5\", Text.Trim, type text}, {\"Column6\", Text.Trim, type text}, {\"Column7\", Text.Trim, type text}, {\"Column8\", Text.Trim, type text}, {\"Column9\", Text.Trim, type text}, {\"Column10\", Text.Trim, type text}, {\"Column11\", Text.Trim, type text}, {\"Column12\", Text.Trim, type text}, {\"Column13\", Text.Trim, type text}, {\"Column14\", Text.Trim, type text}, {\"Column15\", Text.Trim, type text}, {\"Column16\", Text.Trim, type text}, {\"Column17\", Text.Trim, type text}, {\"Column18\", Text.Trim, type text}, {\"Column19\", Text.Trim, type text}, {\"Column20\", Text.Trim, type text}, {\"Column21\", Text.Trim, type text}, {\"Column22\", Text.Trim, type text}, {\"Column23\", Text.Trim, type text}, {\"Column24\", Text.Trim, type text}, {\"Column25\", Text.Trim, type text}, {\"Column26\", Text.Trim, type text}, {\"Column27\", Text.Trim, type text}, {\"Column28\", Text.Trim, type text}, {\"Column29\", Text.Trim, type text}, {\"Column30\", Text.Trim, type text}, {\"Column31\", Text.Trim, type text}}),",
-          "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Trimmed Text\", [PromoteAllScalars=true])",
+          "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Trimmed Text\", [PromoteAllScalars=true]),",
+          "    #\"Replaced Value\" = Table.ReplaceValue(#\"Promoted Headers\",\"-\",null,Replacer.ReplaceValue,{\"ชื่อโรงงาน\"})",
           "in",
-          "    #\"Promoted Headers\""
+          "    #\"Replaced Value\""
         ],
         "kind": "m",
         "lineageTag": "1bb2f542-8000-45d7-80d6-531e3b7edbf2",
@@ -706,454 +707,32 @@
         "toTable": "Sub-district_Lookup"
       },
       {
-        "name": "4b6e1277-f8de-401d-89bc-245a7d7597a0",
-        "fromColumn": "Industry Group",
-        "fromTable": "Data",
-        "toColumn": "Group",
-        "toTable": "Industry Group Lookup"
-      },
-      {
-        "name": "50d220db-2ab0-4b1c-801a-4e6ca7ff2498",
+        "name": "fc0dac2f-3158-4976-afed-a4420b4fb226",
         "fromColumn": "sub category",
         "fromTable": "Data",
         "toColumn": "sub category",
-        "toTable": "Industry Sub-Category"
+        "toTable": "Industry Sub-Category_Lookup"
+      },
+      {
+        "name": "d7127291-08c8-47aa-8733-5fd6ed475da2",
+        "fromColumn": "Industry Group",
+        "fromTable": "Data",
+        "toColumn": "Group",
+        "toTable": "Industry Group_Lookup"
       }
     ],
     "sourceQueryCulture": "en-US",
     "tables": [
-      {
-        "name": "Address Details",
-        "annotations": [
-          {
-            "name": "PBI_ResultType",
-            "value": "Table"
-          }
-        ],
-        "columns": [
-          {
-            "name": "Building area (sq.m.)",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "5c1a8187-4fa4-4039-8ab3-0b1045f78a33",
-            "sourceColumn": "Building area (sq.m.)",
-            "summarizeBy": "sum"
-          },
-          {
-            "name": "Group Description Thai",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "96637e80-ca3f-49d2-b89d-9f73ab6f7018",
-            "sourceColumn": "Group Description Thai",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Industry Group",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "0a42a9ef-07dd-47f9-bb23-301d005f3a05",
-            "sourceColumn": "Industry Group",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "Sub Category Description Thai",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "9d86e8c7-c539-4c13-b160-e873a42c3390",
-            "sourceColumn": "Sub Category Description Thai",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "TSIC",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "bdb2d6d1-82bd-4cf0-9dd2-0707feb73e70",
-            "sourceColumn": "TSIC",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "TSIC Description Thai",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "e9a0226f-9150-481e-b6ed-ad9345993498",
-            "sourceColumn": "TSIC Description Thai",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "building value",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "925b583f-b4d2-4b83-938b-680b23a6c6fb",
-            "sourceColumn": "building value",
-            "summarizeBy": "sum"
-          },
-          {
-            "name": "business (TH)",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "d6d72f05-809b-4cf7-af5d-1098340baeb5",
-            "sourceColumn": "business (TH)",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "district",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "a26cc763-2a54-4d41-899e-657fac8bc9a2",
-            "sourceColumn": "district",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "factory area (sq.m.)",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "a5d4ca2f-d01a-45fa-9f65-5e5fe0601299",
-            "sourceColumn": "factory area (sq.m.)",
-            "summarizeBy": "sum"
-          },
-          {
-            "name": "factory name",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "81a5b12b-0dcb-4dca-a8c6-1d4cc46b458a",
-            "sourceColumn": "factory name",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "female",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "1ab4bc8c-4c45-4ce2-81b0-62f17db54945",
-            "sourceColumn": "female",
-            "summarizeBy": "sum"
-          },
-          {
-            "name": "land value",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "37275c3f-8439-4850-aa33-8e6100452253",
-            "sourceColumn": "land value",
-            "summarizeBy": "sum"
-          },
-          {
-            "name": "machine cost",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "f3088c17-e304-4f43-bc55-bfe0e6f0d643",
-            "sourceColumn": "machine cost",
-            "summarizeBy": "sum"
-          },
-          {
-            "name": "male",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "b31ca6f1-57da-4634-a215-587da69a7eed",
-            "sourceColumn": "male",
-            "summarizeBy": "sum"
-          },
-          {
-            "name": "moo",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "d884d7c2-1d4f-41be-99a2-b8320beb9500",
-            "sourceColumn": "moo",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "number",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "0bd9f819-8f8b-425a-9d58-1fd539b93bad",
-            "sourceColumn": "number",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "post code",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "728380ff-f2de-48b7-888b-853ca3252117",
-            "sourceColumn": "post code",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "province",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "66404f8f-c9fb-47a8-8d1e-93d02f0fa44c",
-            "sourceColumn": "province",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "road",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "a1ace85d-06fa-4feb-add3-4b9e2f40907e",
-            "sourceColumn": "road",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "soi",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "014639e5-4f98-4422-aba5-732bf95e849c",
-            "sourceColumn": "soi",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "sub category",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "1bf3bf5e-3f67-4fac-9899-d51de01a94d3",
-            "sourceColumn": "sub category",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "sub-district",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "da416a2b-c059-45b2-9c39-c4b9285f9bee",
-            "sourceColumn": "sub-district",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "telephone",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "69e0dd6a-93d9-4310-8499-436a70df68fe",
-            "sourceColumn": "telephone",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "total investment",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "638f5f75-2117-42e4-90be-a6f78eaab84b",
-            "sourceColumn": "total investment",
-            "summarizeBy": "sum"
-          },
-          {
-            "name": "total workers",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "cdf4c7d3-cb88-41fb-a996-8425819f55ef",
-            "sourceColumn": "total workers",
-            "summarizeBy": "sum"
-          },
-          {
-            "name": "type code",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "string",
-            "lineageTag": "c47b68fd-0f5e-4d68-8d2b-777f2eca9a3c",
-            "sourceColumn": "type code",
-            "summarizeBy": "none"
-          },
-          {
-            "name": "working capital",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ],
-            "dataType": "int64",
-            "formatString": "0",
-            "lineageTag": "70e5fa7f-bf0f-4cfa-ba9c-9da250147b9d",
-            "sourceColumn": "working capital",
-            "summarizeBy": "sum"
-          }
-        ],
-        "lineageTag": "b6f83f74-20c8-413e-b362-36f1d6e71e00",
-        "partitions": [
-          {
-            "name": "Address Details",
-            "mode": "import",
-            "queryGroup": "Data Queries",
-            "source": {
-              "expression": [
-                "let",
-                "    Source = #\"Transform eec data file\",    ",
-                "    #\"Added Age Column\" = Table.AddColumn(Source, \"Age\", each ",
-                "    let",
-                "        currentYear = Date.Year(DateTime.LocalNow()),",
-                "        buddhistYear = currentYear + 543,",
-                "        licensedYearText = Text.From([licensed year]),",
-                "        licensedYearFull = Number.FromText(if Text.Length(licensedYearText) = 2 then \"25\" & licensedYearText else licensedYearText),",
-                "        age = buddhistYear - licensedYearFull",
-                "    in",
-                "  age),",
-                "    #\"Added 5 Digit TSIC Column\" = Table.AddColumn(#\"Added Age Column\", \"5 Digit TSISC\", each if Text.Length([TSIC]) = 4 then \"0\" & [TSIC] else [TSIC]),",
-                "    #\"Changed % Digit TSIC Column Type to Text\" = Table.TransformColumnTypes(#\"Added 5 Digit TSIC Column\",{{\"5 Digit TSISC\", type text}}),",
-                "    #\"Removed Old TSIC Column\" = Table.RemoveColumns(#\"Changed % Digit TSIC Column Type to Text\",{\"TSIC\"}),",
-                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Removed Old TSIC Column\",{{\"5 Digit TSISC\", \"TSIC\"}}),    ",
-                "    #\"Merged TSIC Lookup Query\" = Table.NestedJoin(#\"Renamed Columns\", {\"TSIC\"}, #\"TSIC Lookup\", {\"TSIC\"}, \"TSIC Lookup\", JoinKind.LeftOuter),",
-                "    #\"Expanded TSIC Lookup\" = Table.ExpandTableColumn(#\"Merged TSIC Lookup Query\", \"TSIC Lookup\", {\"Group\", \"ISIC Description Thai\", \"sub category\"}, {\"Group\", \"ISIC Description Thai\", \"sub category\"}),",
-                "    #\"Renamed Group & ISIC Description Columns\" = Table.RenameColumns(#\"Expanded TSIC Lookup\",{{\"Group\", \"Industry Group\"}, {\"ISIC Description Thai\", \"TSIC Description Thai\"}}),",
-                "    #\"Removed Un-needed Columns\" = Table.RemoveColumns(#\"Renamed Group & ISIC Description Columns\",{\"factory registration number\", \"FID factory registration code\", \"licensed year\",\"Index\", \"Age\", \"owner name\", \"business (EN)\", \"province code\"}),",
-                "    #\"Merged Industry Group Query\" = Table.NestedJoin(#\"Removed Un-needed Columns\", {\"Industry Group\"}, #\"Industry Group Lookup\", {\"Group\"}, \"Industry Group Lookup\", JoinKind.LeftOuter),",
-                "    #\"Expanded Industry Group Lookup\" = Table.ExpandTableColumn(#\"Merged Industry Group Query\", \"Industry Group Lookup\", {\"ISIC Description Thai\"}, {\"ISIC Description Thai\"}),",
-                "    #\"Renamed ISIC Description Column\" = Table.RenameColumns(#\"Expanded Industry Group Lookup\",{{\"ISIC Description Thai\", \"Group Description Thai\"}}),",
-                "    #\"Merged Industry Sub-Category Lookup Query\" = Table.NestedJoin(#\"Renamed ISIC Description Column\", {\"sub category\"}, #\"Industry Sub-Category\", {\"sub category\"}, \"Industry Sub-Category\", JoinKind.LeftOuter),",
-                "    #\"Expanded Industry Sub-Category\" = Table.ExpandTableColumn(#\"Merged Industry Sub-Category Lookup Query\", \"Industry Sub-Category\", {\"ISIC Description Thai\"}, {\"ISIC Description Thai\"}),",
-                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Expanded Industry Sub-Category\",{{\"ISIC Description Thai\", \"Sub Category Description Thai\"}}),",
-                "    #\"Changed Certain Columns to Numeric Values for Analysis\" = Table.TransformColumnTypes(#\"Renamed Columns1\",{{\"building value\", Int64.Type}, {\"land value\", Int64.Type}, {\"machine cost\", Int64.Type}, {\"working capital\", Int64.Type}, {\"total investment\", Int64.Type}, {\"factory area (sq.m.)\", Int64.Type}, {\"Building area (sq.m.)\", Int64.Type}, {\"male\", Int64.Type}, {\"female\", Int64.Type}, {\"total workers\", Int64.Type}})    ",
-                "in",
-                "    #\"Changed Certain Columns to Numeric Values for Analysis\""
-              ],
-              "type": "m"
-            }
-          }
-        ]
-      },
       {
         "name": "Data",
         "annotations": [
           {
             "name": "PBI_ResultType",
             "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
           }
         ],
         "columns": [
@@ -1671,7 +1250,7 @@
               }
             ],
             "dataType": "int64",
-            "formatString": "0",
+            "formatString": "#,0",
             "lineageTag": "bdf71985-9e8a-4cf4-b0e1-eee19a92e91a",
             "sourceColumn": "total workers",
             "summarizeBy": "sum"
@@ -1706,7 +1285,7 @@
                 "    Source = #\"Transform eec data file\",",
                 "    #\"Added Custom\" = Table.AddColumn(Source, \"5 Digit TSISC\", each if Text.Length([TSIC]) = 4 then \"0\" & [TSIC] else [TSIC]),",
                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Added Custom\",{{\"5 Digit TSISC\", type text}, {\"Building area (sq.m.)\", Int64.Type}, {\"factory area (sq.m.)\", Int64.Type}, {\"total workers\", Int64.Type}, {\"female\", Int64.Type}, {\"male\", Int64.Type}, {\"total investment\", type number}, {\"working capital\", type number}, {\"machine cost\", type number}, {\"land value\", type number}, {\"building value\", type number}}),",
-                "    #\"Merged Queries\" = Table.NestedJoin(#\"Changed Type\", {\"5 Digit TSISC\"}, #\"TSIC Lookup\", {\"TSIC\"}, \"TSIC Lookup\", JoinKind.LeftOuter),",
+                "    #\"Merged Queries\" = Table.NestedJoin(#\"Changed Type\", {\"5 Digit TSISC\"}, TSIC_Lookup, {\"TSIC\"}, \"TSIC Lookup\", JoinKind.LeftOuter),",
                 "    #\"Expanded TSIC Lookup\" = Table.ExpandTableColumn(#\"Merged Queries\", \"TSIC Lookup\", {\"Group\", \"sub category\"}, {\"Group\", \"sub category\"}),",
                 "    #\"Renamed Group Column\" = Table.RenameColumns(#\"Expanded TSIC Lookup\",{{\"Group\", \"Industry Group\"}}),",
                 "    #\"Removed TSIC Column\" = Table.RemoveColumns(#\"Renamed Group Column\",{\"TSIC\"}),",
@@ -1749,9 +1328,18 @@
                 "    #\"Added Working Capital Number (M Baht)\" = Table.AddColumn(#\"Changed Machine Cost (M Baht) to Decimal Number\", \"Working Capital (M Baht)\", each if [working capital] = null then 0 else if [working capital] > 0 then [working capital] / 1000000 else 0),",
                 "    #\"Added Total Investment (M Baht)\" = Table.AddColumn(#\"Added Working Capital Number (M Baht)\", \"Total Investment (M Baht)\", each if [total investment] = null then null else if [total investment] > 0 then [total investment] / 1000000 else 0),",
                 "    #\"Changed Working Capital (M Baht) and Total Investment (M Baht) to Decimal Number\" = Table.TransformColumnTypes(#\"Added Total Investment (M Baht)\",{{\"Working Capital (M Baht)\", type number}, {\"Total Investment (M Baht)\", type number}, {\"licensed year\", Int64.Type}, {\"province code\", Int64.Type}}),",
-                "    #\"Filtered Rows\" = Table.SelectRows(#\"Changed Working Capital (M Baht) and Total Investment (M Baht) to Decimal Number\", each true)",
+                "    #\"Replaced moo - with null\" = Table.ReplaceValue(#\"Changed Working Capital (M Baht) and Total Investment (M Baht) to Decimal Number\",\"-\",null,Replacer.ReplaceValue,{\"moo\"}),",
+                "    #\"Replaced moo blank items with null\" = Table.ReplaceValue(#\"Replaced moo - with null\",\"\",null,Replacer.ReplaceValue,{\"moo\"}),",
+                "    #\"Replaced soi - with null\" = Table.ReplaceValue(#\"Replaced moo blank items with null\",\"-\",null,Replacer.ReplaceValue,{\"soi\"}),",
+                "    #\"Replaced soi blank items with null\" = Table.ReplaceValue(#\"Replaced soi - with null\",\"\",null,Replacer.ReplaceValue,{\"soi\"}),",
+                "    #\"Replaced road - with null\" = Table.ReplaceValue(#\"Replaced soi blank items with null\",\"-\",null,Replacer.ReplaceValue,{\"road\"}),",
+                "    #\"Replaced road blank items with null\" = Table.ReplaceValue(#\"Replaced road - with null\",\"\",null,Replacer.ReplaceValue,{\"road\"}),",
+                "    #\"Replaced number blank items with null\" = Table.ReplaceValue(#\"Replaced road blank items with null\",\"\",null,Replacer.ReplaceValue,{\"number\"}),",
+                "    #\"Replaced number - with null\" = Table.ReplaceValue(#\"Replaced number blank items with null\",\"-\",null,Replacer.ReplaceValue,{\"number\"}),",
+                "    #\"Replaced Value\" = Table.ReplaceValue(#\"Replaced number - with null\",\"\",null,Replacer.ReplaceValue,{\"telephone\"}),",
+                "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Replaced Value\",\"-\",null,Replacer.ReplaceValue,{\"telephone\"})",
                 "in",
-                "    #\"Filtered Rows\""
+                "    #\"Replaced Value1\""
               ],
               "type": "m"
             }
@@ -2087,10 +1675,6 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
           }
         ],
         "columns": [
@@ -2157,10 +1741,6 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
           }
         ],
         "columns": [
@@ -2222,12 +1802,8 @@
         ]
       },
       {
-        "name": "Ind Analysis Buttons",
+        "name": "Ind Analysis Buttons (EN)",
         "annotations": [
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          },
           {
             "name": "PBI_ResultType",
             "value": "Table"
@@ -2256,10 +1832,63 @@
                 "value": "Automatic"
               }
             ],
+            "changedProperties": [
+              {
+                "property": "SortByColumn"
+              }
+            ],
             "dataType": "string",
             "lineageTag": "75a0e4f1-4475-4eaf-aac8-7df5a6d2ab7a",
+            "sortByColumn": "Analysis Type",
             "sourceColumn": "EN",
             "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "67ee7320-b46c-4a10-8b4a-83ab45e8b37b",
+        "partitions": [
+          {
+            "name": "Ind Analysis Buttons (EN)",
+            "mode": "import",
+            "queryGroup": "Analysis Types",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"D:\\OneDrive\\Documents\\001 - Power BI & Data Visualisation\\In Development\\Active\\EEC Factory Analysis - Power BI Version\\Data\\BiLingual Text Strings.xlsx\"), null, true),",
+                "    #\"Ind Analysis Buttons_Sheet\" = Source{[Item=\"Ind Analysis Buttons\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Ind Analysis Buttons_Sheet\", [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Analysis Type\", Int64.Type}, {\"EN\", type text}, {\"TH\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"TH\"}),",
+                "    #\"Sorted Rows\" = Table.Sort(#\"Removed Columns\",{{\"Analysis Type\", Order.Ascending}})",
+                "in",
+                "    #\"Sorted Rows\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Ind Analysis Buttons (TH)",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Analysis Type",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "da2c1342-af13-4597-81fb-e76497e834c4",
+            "sourceColumn": "Analysis Type",
+            "summarizeBy": "sum"
           },
           {
             "name": "TH",
@@ -2269,27 +1898,34 @@
                 "value": "Automatic"
               }
             ],
+            "changedProperties": [
+              {
+                "property": "SortByColumn"
+              }
+            ],
             "dataType": "string",
-            "lineageTag": "15f3e6f3-49c8-458b-bcca-7ce20c4548e5",
+            "lineageTag": "1c5ebb39-8c5c-49e7-a939-c0764da44544",
+            "sortByColumn": "Analysis Type",
             "sourceColumn": "TH",
             "summarizeBy": "none"
           }
         ],
-        "lineageTag": "67ee7320-b46c-4a10-8b4a-83ab45e8b37b",
+        "lineageTag": "f9be78f2-c761-4865-b842-991352774076",
         "partitions": [
           {
-            "name": "Ind Analysis Buttons",
+            "name": "Ind Analysis Buttons (TH)",
             "mode": "import",
-            "queryGroup": "Data Source",
+            "queryGroup": "Analysis Types",
             "source": {
               "expression": [
                 "let",
                 "    Source = Excel.Workbook(File.Contents(\"D:\\OneDrive\\Documents\\001 - Power BI & Data Visualisation\\In Development\\Active\\EEC Factory Analysis - Power BI Version\\Data\\BiLingual Text Strings.xlsx\"), null, true),",
                 "    #\"Ind Analysis Buttons_Sheet\" = Source{[Item=\"Ind Analysis Buttons\",Kind=\"Sheet\"]}[Data],",
                 "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Ind Analysis Buttons_Sheet\", [PromoteAllScalars=true]),",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Analysis Type\", Int64.Type}, {\"EN\", type text}, {\"TH\", type text}})",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Analysis Type\", Int64.Type}, {\"EN\", type text}, {\"TH\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"EN\"})",
                 "in",
-                "    #\"Changed Type\""
+                "    #\"Removed Columns\""
               ],
               "type": "m"
             }
@@ -2297,15 +1933,11 @@
         ]
       },
       {
-        "name": "Industry Group Lookup",
+        "name": "Industry Group_Lookup",
         "annotations": [
           {
             "name": "PBI_ResultType",
             "value": "Table"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
           }
         ],
         "columns": [
@@ -2318,7 +1950,7 @@
               }
             ],
             "dataType": "string",
-            "lineageTag": "47a32b01-0487-486c-be58-0d54fc605a5a",
+            "lineageTag": "4d765e9b-13da-4bc7-8c86-e32c6424a414",
             "sourceColumn": "Group",
             "summarizeBy": "none"
           },
@@ -2331,7 +1963,7 @@
               }
             ],
             "dataType": "string",
-            "lineageTag": "bdd6b5af-b7cb-40be-a01d-ea69482109e5",
+            "lineageTag": "3f4ec106-1ac3-4f4e-9460-5f1d3efb5baf",
             "sourceColumn": "Group (EN)",
             "summarizeBy": "none"
           },
@@ -2344,50 +1976,27 @@
               }
             ],
             "dataType": "string",
-            "lineageTag": "3a656811-a152-4b79-88e9-ff4fe6fa841c",
+            "lineageTag": "e2e11116-9f68-4054-bc83-14e4afe798b8",
             "sourceColumn": "Group (TH)",
             "summarizeBy": "none"
           }
         ],
-        "lineageTag": "1eb51c81-b71e-41ec-be93-ff80a0fbe75e",
+        "lineageTag": "c4ffdafe-13a7-4a9a-ac99-e846e496735e",
         "partitions": [
           {
-            "name": "Industry Group Lookup",
+            "name": "Industry Group_Lookup",
             "mode": "import",
             "queryGroup": "Dimension Queries",
             "source": {
               "expression": [
                 "let",
                 "    Source = #\"ISIC-BOT Rev#4\",",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Code\", type text}, {\"Activity / Activity BOT\", type text}, {\"sub activity\", type text}, {\"ISIC Description Thai\", type text}, {\"Sub-Section\", type text}, {\"Section\", type text}, {\"sub category\", type text}, {\"Group\", type text}, {\"ISIC Description English\", type text}, {\"Parent\", type text}}),",
-                "    #\"Removed Type Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Service\", \"Wholesale\", \"Retail\", \"Goods Production\"}),",
-                "    #\"Filled Down\" = Table.FillDown(#\"Removed Type Columns\",{\"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"Activity / Activity BOT\"}),",
-                "    #\"Replaced with null values\" = Table.ReplaceValue(#\"Filled Down\",\"-\",null,Replacer.ReplaceValue,{\"Code\", \"ISIC Description Thai\", \"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"Activity / Activity BOT\", \"Adjusted TSIC\", \"sub activity\", \"ISIC Description English\", \"Parent\"}),    ",
-                "    #\"Removed Activity Column\" = Table.RemoveColumns(#\"Replaced with null values\",{\"Activity / Activity BOT\"}),",
-                "    #\"Changed Adjusted TSIC Type\" = Table.TransformColumnTypes(#\"Removed Activity Column\",{{\"Adjusted TSIC\", type text}}),",
-                "    #\"Renamed Adjusted TSIC Column\" = Table.RenameColumns(#\"Changed Adjusted TSIC Type\",{{\"Adjusted TSIC\", \"TSIC\"}}),",
-                "    #\"Removed Bottom Rows\" = Table.RemoveLastN(#\"Renamed Adjusted TSIC Column\",2),",
-                "    #\"Removed Duplicates in TSIC Column\" = Table.Distinct(#\"Removed Bottom Rows\", {\"TSIC\"}),    ",
-                "    #\"Removed sub activity Column\" = Table.RemoveColumns(#\"Removed Duplicates in TSIC Column\",{\"sub activity\"}),",
-                "    #\"Changed All Columns to Text\" = Table.TransformColumnTypes(#\"Removed sub activity Column\",{{\"Code\", type text}, {\"TSIC\", type text}, {\"ISIC Description Thai\", type text}, {\"ISIC Description English\", type text}, {\"Group\", type text}, {\"sub category\", type text}, {\"Section\", type text}, {\"Sub-Section\", type text}, {\"Parent\", type text}}),",
-                "    #\"Sorted Rows\" = Table.Sort(#\"Changed All Columns to Text\",{{\"TSIC\", Order.Ascending}}),",
-                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Sorted Rows\",{\"Code\", \"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"TSIC\", \"Parent\", \"ISIC Description Thai\", \"ISIC Description English\"}),",
-                "    #\"Renamed Description Columns\" = Table.RenameColumns(#\"Reordered Columns\",{{\"ISIC Description Thai\", \"TISIC Description (TH)\"}, {\"ISIC Description English\", \"TISIC Description (EN)\"}}),",
-                "    //Source = #\"TSIC Lookup\",",
-                "    #\"Split TSIC Column\" = Table.SplitColumn(\"Renamed Description Columns\", \"TSIC\", Splitter.SplitTextByCharacterTransition((c) => not List.Contains({\"0\"..\"9\"}, c), {\"0\"..\"9\"}), {\"TSIC.1\", \"TSIC.2\"}),",
-                "    #\"Filtered Rows\" = Table.SelectRows(#\"Split TSIC Column\", each ([TSIC.2] = \"0000\")),",
-                "    #\"Removed Unused TSIC Columns\" = Table.RemoveColumns(#\"Filtered Rows\",{\"TSIC.2\", \"TSIC.1\"}),",
-                "    #\"Final Reorder Columns\" = Table.ReorderColumns(#\"Removed Columns\",{\"Code\", \"Group\", \"ISIC Description Thai\", \"ISIC Description English\", \"sub category\", \"Section\", \"Sub-Section\", \"Parent\"}),",
-                "    #\"Removed Sub Category Columns\" = Table.RemoveColumns(#\"Reordered Columns\",{\"sub category\", \"Section\", \"Sub-Section\",  \"Parent\"}),",
-                "    #\"Added Custom\" = Table.AddColumn(#\"Removed Sub Category Columns\", \"Group Description Thai\", each [Group] & \": \" & [ISIC Description Thai]),",
-                "    #\"Changed Group Desc TH Type\" = Table.TransformColumnTypes(#\"Added Custom\",{{\"Group Description Thai\", type text}}),",
-                "    #\"Added Group Desc EN\" = Table.AddColumn(#\"Changed Group Desc TH Type\", \"Group Description English\", each [Group] & \": \" &[ISIC Description English]),",
-                "    #\"Removed Group Description Columns\" = Table.RemoveColumns(#\"Added Group Desc EN\",{\"Group Description Thai\", \"Group Description English\", \"Code\"}),",
-                "    #\"Final Renamed Columns\" = Table.RenameColumns(#\"Removed Group Description Columns\",{{\"ISIC Description Thai\", \"Group (TH)\"}, {\"ISIC Description English\", \"Group (EN)\"}}),",
-                "    #\"Removed Duplicates\" = Table.Distinct(#\"Final Renamed Columns\", {\"Group\"}),",
-                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Removed Duplicates\",{\"TSIC\"})",
+                "    #\"Filtered Rows\" = Table.SelectRows(Source, each ([Group] <> null)),",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Filtered Rows\",{\"Code\", \"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"Activity / Activity BOT\", \"Adjusted TSIC\", \"sub activity\", \"ISIC Description Thai\", \"ISIC Description English\", \"Parent\", \"Goods Production\", \"Service\", \"Wholesale\", \"Retail\"}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Reordered Columns\",{\"Code\", \"sub category\", \"Section\", \"Sub-Section\", \"Activity / Activity BOT\", \"Adjusted TSIC\", \"sub activity\", \"Parent\", \"Goods Production\", \"Service\", \"Wholesale\", \"Retail\"}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Removed Columns\",{{\"ISIC Description Thai\", \"Group (TH)\"}, {\"ISIC Description English\", \"Group (EN)\"}})",
                 "in",
-                "    #\"Removed Columns\""
+                "    #\"Renamed Columns\""
               ],
               "type": "m"
             }
@@ -2395,7 +2004,7 @@
         ]
       },
       {
-        "name": "Industry Sub-Category",
+        "name": "Industry Sub-Category_Lookup",
         "annotations": [
           {
             "name": "PBI_ResultType",
@@ -2412,7 +2021,7 @@
               }
             ],
             "dataType": "string",
-            "lineageTag": "dbf62e29-3dbf-4a59-8044-61d6dbdf81aa",
+            "lineageTag": "67ad7b77-4355-4d1f-a6f7-1e086d47c072",
             "sourceColumn": "Sub Category (EN)",
             "summarizeBy": "none"
           },
@@ -2425,7 +2034,7 @@
               }
             ],
             "dataType": "string",
-            "lineageTag": "e0cf4dcd-a3e9-4bab-b6ca-ac4c9df7be8e",
+            "lineageTag": "1457a30a-fe57-4ba6-a2ba-db93be05e99d",
             "sourceColumn": "Sub Category (TH)",
             "summarizeBy": "none"
           },
@@ -2438,49 +2047,27 @@
               }
             ],
             "dataType": "string",
-            "lineageTag": "d0a11cf2-22ba-4416-8f08-26a8388285d6",
+            "lineageTag": "d42d2c87-1421-4444-9358-7a7936944996",
             "sourceColumn": "sub category",
             "summarizeBy": "none"
           }
         ],
-        "lineageTag": "5383ccaa-0a1f-4163-8f65-ea970295acff",
+        "lineageTag": "d63170b8-dd5b-43ad-abbf-b93fc45a80ac",
         "partitions": [
           {
-            "name": "Industry Sub-Category",
+            "name": "Industry Sub-Category_Lookup",
             "mode": "import",
             "queryGroup": "Dimension Queries",
             "source": {
               "expression": [
                 "let",
-                "Source = #\"ISIC-BOT Rev#4\",",
-                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Code\", type text}, {\"Activity / Activity BOT\", type text}, {\"sub activity\", type text}, {\"ISIC Description Thai\", type text}, {\"Sub-Section\", type text}, {\"Section\", type text}, {\"sub category\", type text}, {\"Group\", type text}, {\"ISIC Description English\", type text}, {\"Parent\", type text}}),",
-                "    #\"Removed Type Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Service\", \"Wholesale\", \"Retail\", \"Goods Production\"}),",
-                "    #\"Filled Down\" = Table.FillDown(#\"Removed Type Columns\",{\"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"Activity / Activity BOT\"}),",
-                "    #\"Replaced with null values\" = Table.ReplaceValue(#\"Filled Down\",\"-\",null,Replacer.ReplaceValue,{\"Code\", \"ISIC Description Thai\", \"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"Activity / Activity BOT\", \"Adjusted TSIC\", \"sub activity\", \"ISIC Description English\", \"Parent\"}),    ",
-                "    #\"Removed Activity Column\" = Table.RemoveColumns(#\"Replaced with null values\",{\"Activity / Activity BOT\"}),",
-                "    #\"Changed Adjusted TSIC Type\" = Table.TransformColumnTypes(#\"Removed Activity Column\",{{\"Adjusted TSIC\", type text}}),",
-                "    #\"Renamed Adjusted TSIC Column\" = Table.RenameColumns(#\"Changed Adjusted TSIC Type\",{{\"Adjusted TSIC\", \"TSIC\"}}),",
-                "    #\"Removed Bottom Rows\" = Table.RemoveLastN(#\"Renamed Adjusted TSIC Column\",2),",
-                "    #\"Removed Duplicates in TSIC Column\" = Table.Distinct(#\"Removed Bottom Rows\", {\"TSIC\"}),    ",
-                "    #\"Removed sub activity Column\" = Table.RemoveColumns(#\"Removed Duplicates in TSIC Column\",{\"sub activity\"}),",
-                "    #\"Changed All Columns to Text\" = Table.TransformColumnTypes(#\"Removed sub activity Column\",{{\"Code\", type text}, {\"TSIC\", type text}, {\"ISIC Description Thai\", type text}, {\"ISIC Description English\", type text}, {\"Group\", type text}, {\"sub category\", type text}, {\"Section\", type text}, {\"Sub-Section\", type text}, {\"Parent\", type text}}),",
-                "    #\"Sorted Rows\" = Table.Sort(#\"Changed All Columns to Text\",{{\"TSIC\", Order.Ascending}}),",
-                "    #\"Initial Reordered Columns\" = Table.ReorderColumns(#\"Sorted Rows\",{\"Code\", \"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"TSIC\", \"Parent\", \"ISIC Description Thai\", \"ISIC Description English\"}),",
-                "    #\"Renamed Description Columns\" = Table.RenameColumns(#\"Initial Reordered Columns\",{{\"ISIC Description Thai\", \"TSIC Description (TH)\"}, {\"ISIC Description English\", \"TSIC Description (EN)\"}}),    ",
-                "    //Source = #\"TSIC Lookup\",",
-                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Renamed Description Columns\",{\"Section\", \"Sub-Section\", \"Parent\"}),",
-                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Removed Columns\",{\"sub category\", \"Code\", \"TSIC\", \"TSIC Description (TH)\", \"TSIC Description (EN)\", \"Group\"}),",
-                "    #\"Filtered Sub Category\" = Table.SelectRows(#\"Reordered Columns\", each [sub category] <> \"0\"),",
-                "    #\"Removed Duplicates\" = Table.Distinct(#\"Filtered Sub Category\", {\"sub category\"}),",
-                "    #\"Added Group Desc TH\" = Table.AddColumn(#\"Removed Duplicates\", \"Sub Category Description Thai\", each [sub category] & \" : \" &[ISIC Description Thai]),",
-                "    #\"Added Group Desc EN\" = Table.AddColumn(#\"Added Group Desc TH\", \"Sub Category Description English\", each [sub category] & \" : \" &[ISIC Description English]),",
-                "    #\"Changed Sub Category Desc Types\" = Table.TransformColumnTypes(#\"Added Group Desc EN\",{{\"Sub Category Description Thai\", type text}, {\"Sub Category Description English\", type text}}),",
-                "    #\"Sorted Sub Category Asc\" = Table.Sort(#\"Changed Sub Category Desc Types\",{{\"sub category\", Order.Ascending}}),",
-                "    #\"Filtered Rows\" = Table.SelectRows(#\"Sorted Sub Category Asc\", each ([sub category] <> null)),",
-                "    #\"Removed Unneeded Columns\" = Table.RemoveColumns(#\"Filtered Rows\",{\"Code\", \"TSIC\", \"Group\", \"Sub Category Description Thai\", \"Sub Category Description English\"}),",
-                "    #\"Final Renamed Columns\" = Table.RenameColumns(#\"Removed Unneeded Columns\",{{\"TSIC Description (TH)\", \"Sub Category (TH)\"}, {\"TSIC Description (EN)\", \"Sub Category (EN)\"}})",
+                "    Source = #\"ISIC-BOT Rev#4\",",
+                "    #\"Filtered Rows\" = Table.SelectRows(Source, each ([sub category] <> null)),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Filtered Rows\",{\"Code\", \"Group\", \"Section\", \"Sub-Section\", \"Activity / Activity BOT\", \"Adjusted TSIC\", \"sub activity\", \"Parent\", \"Goods Production\", \"Service\", \"Wholesale\", \"Retail\"}),",
+                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Removed Columns\",{\"sub category\", \"ISIC Description Thai\", \"ISIC Description English\"}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Reordered Columns\",{{\"ISIC Description Thai\", \"Sub Category (TH)\"}, {\"ISIC Description English\", \"Sub Category (EN)\"}})",
                 "in",
-                "    #\"Final Renamed Columns\""
+                "    #\"Renamed Columns\""
               ],
               "type": "m"
             }
@@ -2493,10 +2080,6 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
           }
         ],
         "columns": [
@@ -2563,10 +2146,6 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
           }
         ],
         "columns": [
@@ -2887,7 +2466,7 @@
         ]
       },
       {
-        "name": "TSIC Lookup",
+        "name": "TSIC_Lookup",
         "annotations": [
           {
             "name": "PBI_ResultType",
@@ -2896,7 +2475,7 @@
         ],
         "columns": [
           {
-            "name": "TISIC Description (EN)",
+            "name": "Code",
             "annotations": [
               {
                 "name": "SummarizationSetBy",
@@ -2904,8 +2483,21 @@
               }
             ],
             "dataType": "string",
-            "lineageTag": "589e3f4c-4015-4195-b515-0322e942d75b",
-            "sourceColumn": "TISIC Description (EN)",
+            "lineageTag": "ab307376-7a91-42d3-871f-abaa71a4cb06",
+            "sourceColumn": "Code",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Group",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "3387cb33-ba88-46f7-9c82-074e86f2e4b1",
+            "sourceColumn": "Group",
             "summarizeBy": "none"
           },
           {
@@ -2922,6 +2514,19 @@
             "summarizeBy": "none"
           },
           {
+            "name": "TSIC Description (EN)",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "589e3f4c-4015-4195-b515-0322e942d75b",
+            "sourceColumn": "TSIC Description (EN)",
+            "summarizeBy": "none"
+          },
+          {
             "name": "TSIC Description (TH)",
             "annotations": [
               {
@@ -2933,12 +2538,25 @@
             "lineageTag": "3f4ab680-4c20-4a7d-8fa6-d91f345d380c",
             "sourceColumn": "TSIC Description (TH)",
             "summarizeBy": "none"
+          },
+          {
+            "name": "sub category",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "0edf5c68-989f-4263-abf5-8d2c88f9f0e8",
+            "sourceColumn": "sub category",
+            "summarizeBy": "none"
           }
         ],
         "lineageTag": "dca80745-b9f3-4f44-9cbc-c47c7277e48c",
         "partitions": [
           {
-            "name": "TSIC Lookup",
+            "name": "TSIC_Lookup",
             "mode": "import",
             "queryGroup": "Dimension Queries",
             "source": {
@@ -2959,8 +2577,8 @@
                 "    #\"Sorted Rows\" = Table.Sort(#\"Changed All Columns to Text\",{{\"TSIC\", Order.Ascending}}),",
                 "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Sorted Rows\",{\"Code\", \"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"TSIC\", \"Parent\", \"ISIC Description Thai\", \"ISIC Description English\"}),",
                 "    #\"Renamed Columns\" = Table.RenameColumns(#\"Reordered Columns\",{{\"ISIC Description Thai\", \"TISIC Description (TH)\"}, {\"ISIC Description English\", \"TISIC Description (EN)\"}}),",
-                "    #\"Removed Columns1\" = Table.RemoveColumns(#\"Renamed Columns\",{\"Code\", \"Group\", \"sub category\", \"Section\", \"Sub-Section\", \"Parent\"}),",
-                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Removed Columns1\",{{\"TISIC Description (TH)\", \"TSIC Description (TH)\"}})",
+                "    #\"Removed Columns1\" = Table.RemoveColumns(#\"Renamed Columns\",{\"Section\", \"Sub-Section\", \"Parent\"}),",
+                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Removed Columns1\",{{\"TISIC Description (TH)\", \"TSIC Description (TH)\"}, {\"TISIC Description (EN)\", \"TSIC Description (EN)\"}})",
                 "in",
                 "    #\"Renamed Columns1\""
               ],
@@ -2975,10 +2593,6 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
           }
         ],
         "columns": [
@@ -3042,10 +2656,6 @@
       {
         "name": "Wkf Analysis Buttons (TH)",
         "annotations": [
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
-          },
           {
             "name": "PBI_ResultType",
             "value": "Table"
@@ -3329,6 +2939,7 @@
           },
           {
             "name": "Industry Navigation (EN)",
+            "displayFolder": "EN",
             "expression": [
               "",
               "CALCULATE(",
@@ -3342,6 +2953,7 @@
           },
           {
             "name": "Industry Navigation (TH)",
+            "displayFolder": "TH",
             "expression": [
               "",
               "CALCULATE(",
@@ -3352,6 +2964,58 @@
               ")"
             ],
             "lineageTag": "a0a29032-f0f2-457f-aacc-066d76d76b84"
+          },
+          {
+            "name": "Home Navigation (EN)",
+            "expression": [
+              "",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[EN]",
+              "        ),",
+              "        'Report Titles'[Entity] = \"Home_Page\"",
+              "    )"
+            ],
+            "lineageTag": "8ee71e85-7a42-4dcc-9dd5-d10b4d26e4a6"
+          },
+          {
+            "name": "Home Navigation (TH)",
+            "expression": [
+              "",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[TH]",
+              "        ),",
+              "        'Report Titles'[Entity] = \"Home_Page\"",
+              "    )"
+            ],
+            "lineageTag": "f4506ce2-edb0-44f6-96a8-6f6b8542110e"
+          },
+          {
+            "name": "Navigation Title (EN)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[EN]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Navigation\"",
+              ")"
+            ],
+            "lineageTag": "5207b520-bcfd-47f1-aede-e2a11802025e"
+          },
+          {
+            "name": "Navigation Title (TH)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[TH]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Navigation\"",
+              ")"
+            ],
+            "lineageTag": "52eefa18-e3d1-46b0-ac3f-16aacd15ceff"
           }
         ],
         "partitions": [
@@ -3848,6 +3512,411 @@
                 "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Column1\"})",
                 "in",
                 "    #\"Removed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "_Industry Analysis Measures",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "lineageTag": "2578fda5-9a75-4889-b6e8-c1b09a7dae18",
+        "measures": [
+          {
+            "name": "Ind Total (Large Units) (EN)",
+            "expression": [
+              "",
+              "    VAR Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Ind Analysis Buttons (EN)'[Analysis Type]",
+              "            ),",
+              "            1,",
+              "            SELECTEDVALUE(",
+              "                'Ind Analysis Buttons (EN)'[Analysis Type]",
+              "            )",
+              "        )",
+              "    VAR CalculatedValue = ",
+              "        SWITCH(",
+              "            TRUE(),        ",
+              "            Analysis_Type = 1,                  ",
+              "               COUNT(",
+              "                   Data[post code]",
+              "               ),",
+              "            Analysis_Type = 2,                             ",
+              "                SUM(",
+              "                    Data[factory area (sq Mm)]",
+              "                ),",
+              "            Analysis_Type = 3,                                 ",
+              "                SUM(",
+              "                    Data[building area (sq Mm)]",
+              "                ),",
+              "            Analysis_Type = 4,",
+              "                SUM(",
+              "                    Data[building value (M Baht)]",
+              "                ),",
+              "            Analysis_Type = 5,",
+              "                SUM(",
+              "                    'Data'[total workers]",
+              "                )",
+              "        )",
+              "    RETURN",
+              "            COALESCE(",
+              "                CalculatedValue,",
+              "                0                ",
+              "        )"
+            ],
+            "formatString": "#,0",
+            "lineageTag": "9427ee8e-ee6c-4fbe-903c-dcf8e557af00"
+          },
+          {
+            "name": "Ind Total (Large Units) (TH)",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "    VAR Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Ind Analysis Buttons (TH)'[Analysis Type]",
+              "            ),",
+              "            1,",
+              "            SELECTEDVALUE(",
+              "                'Ind Analysis Buttons (TH)'[Analysis Type]",
+              "            )",
+              "        )",
+              "    VAR CalculatedValue = ",
+              "        SWITCH(",
+              "            TRUE(),        ",
+              "            Analysis_Type = 1,                  ",
+              "               COUNT(",
+              "                   Data[post code]",
+              "               ),",
+              "            Analysis_Type = 2,                             ",
+              "                SUM(",
+              "                    Data[factory area (sq Mm)]",
+              "                ),",
+              "            Analysis_Type = 3,                                 ",
+              "                SUM(",
+              "                    Data[building area (sq Mm)]",
+              "                ),",
+              "            Analysis_Type = 4,",
+              "                SUM(",
+              "                    Data[building value (M Baht)]",
+              "                ),",
+              "            Analysis_Type = 5,",
+              "                SUM(",
+              "                    Data[total workers]",
+              "                )",
+              "        )",
+              "    RETURN",
+              "            COALESCE(",
+              "                CalculatedValue,",
+              "                0                ",
+              "        )"
+            ],
+            "lineageTag": "0df77fe5-9285-4010-a83d-e9a68f53f70d"
+          },
+          {
+            "name": "Industry Value (EN)",
+            "expression": [
+              "",
+              "IF(        ",
+              "    '_Industry Analysis Measures'[Ind Total (Large Units) (EN)] <> ",
+              "    INT('_Industry Analysis Measures'[Ind Total (Large Units) (EN)]),",
+              "    FORMAT(",
+              "        '_Industry Analysis Measures'[Ind Total (Large Units) (EN)],\"#,##0.0\"",
+              "    ),",
+              "    FORMAT(",
+              "        '_Industry Analysis Measures'[Ind Total (Large Units) (EN)],\"#,###\"",
+              "    )",
+              ")    "
+            ],
+            "lineageTag": "47f9d054-446b-4923-ad87-a7cbd5ddb582"
+          },
+          {
+            "name": "Industry Value (TH)",
+            "expression": [
+              "",
+              "IF(        ",
+              "    '_Industry Analysis Measures'[Ind Total (Large Units) (TH)] <> ",
+              "    INT('_Industry Analysis Measures'[Ind Total (Large Units) (TH)]),",
+              "    FORMAT(",
+              "        '_Industry Analysis Measures'[Ind Total (Large Units) (TH)],\"#,##0.0\"",
+              "    ),",
+              "    FORMAT(",
+              "        '_Industry Analysis Measures'[Ind Total (Large Units) (TH)],\"#,###\"",
+              "    )",
+              ")    "
+            ],
+            "lineageTag": "8b8d78a3-2725-4c5d-a3ac-0eba7274d567"
+          },
+          {
+            "name": "Ind Total Investment",
+            "expression": [
+              "",
+              "SUM(",
+              "    Data[Total Investment (M Baht)]",
+              ")"
+            ],
+            "formatString": "#,0.0",
+            "lineageTag": "03b84c5d-f35d-4445-a580-9b950134d9aa"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "_Industry Analysis Measures",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Column1\"})",
+                "in",
+                "    #\"Removed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "_Industry Text Display Measures",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "lineageTag": "d5f74db3-15a1-4c5c-ba87-a29b7f74bd60",
+        "measures": [
+          {
+            "name": "Industry Group Chart Title (EN)",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Ind Analysis Buttons (EN)'[Analysis Type]",
+              "            ),",
+              "            1",
+              "        )                            ",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[EN]),            ",
+              "        'Report Titles'[Entity] = \"Ind_Group_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "a609fa78-878e-4921-bd3d-d9d27c2b1e9d"
+          },
+          {
+            "name": "Industry Group by Total Invesment Title (EN)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[EN]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Ind_Group_Total_Investment_Title\"",
+              ")"
+            ],
+            "lineageTag": "78559822-755e-4257-91c5-8a3b6c655e72"
+          },
+          {
+            "name": "Industry Group by Total Invesment Title (TH)",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    MIN(",
+              "        'Report Titles'[TH]",
+              "    ),",
+              "    'Report Titles'[Entity] = \"Ind_Group_Total_Investment_Title\"",
+              ")"
+            ],
+            "lineageTag": "b0d72692-08fc-47b2-a155-39bf46ef5c05"
+          },
+          {
+            "name": "Industry Group Chart Title (TH)",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Ind Analysis Buttons (TH)'[Analysis Type]",
+              "            ),",
+              "            1",
+              "        )                            ",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[TH]),            ",
+              "        'Report Titles'[Entity] = \"Ind_Group_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "df863804-6023-425c-ae01-36305bf4b353"
+          },
+          {
+            "name": "Industry Sub-Category Chart Title (EN)",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Ind Analysis Buttons (EN)'[Analysis Type]",
+              "            ),",
+              "            1",
+              "        )                            ",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[EN]),            ",
+              "        'Report Titles'[Entity] = \"Ind_Sub-Category_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "04333d98-9fda-4efb-8342-6026383d4191"
+          },
+          {
+            "name": "Industry Sub-Category Chart Title (TH)",
+            "expression": [
+              "",
+              "VAR",
+              "    Selected_Analysis_Type = ",
+              "        COALESCE(",
+              "            SELECTEDVALUE(",
+              "                'Ind Analysis Buttons (TH)'[Analysis Type]",
+              "            ),",
+              "            1",
+              "        )                            ",
+              "RETURN",
+              "    CALCULATE(",
+              "        MIN('Report Titles'[TH]),            ",
+              "        'Report Titles'[Entity] = \"Ind_Sub-Category_Chart_Title\",",
+              "        'Report Titles'[Analysis Type] = Selected_Analysis_Type",
+              "    )"
+            ],
+            "lineageTag": "bb518a0d-1aef-47d2-9b0b-6c1fa73544e2"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "_Industry Text Display Measures",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Column1\"})",
+                "in",
+                "    #\"Removed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "_Information Page Measures",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Column1",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "def72de2-cd0e-4e91-b4b3-e36c2bd6d127",
+            "sourceColumn": "Column1",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "f2849d2b-c781-41da-958f-ce2dd874a6c7",
+        "measures": [
+          {
+            "name": "Information (EN)",
+            "expression": [
+              "",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[EN]",
+              "        ),",
+              "        'Report Titles'[Entity] = \"Information_Text\")"
+            ],
+            "lineageTag": "45760e1f-51a0-4ee7-a5ab-f603421e6003"
+          },
+          {
+            "name": "Information (TH)",
+            "expression": [
+              "",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[TH]",
+              "        ),",
+              "        'Report Titles'[Entity] = \"Information_Text\")"
+            ],
+            "lineageTag": "4226ab83-ab71-472e-b90b-4ac4741dab87"
+          },
+          {
+            "name": "Information Title (EN)",
+            "expression": [
+              "",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[EN]",
+              "        ),",
+              "        'Report Titles'[Entity] = \"Information_Title\"",
+              "    )"
+            ],
+            "lineageTag": "bbca66d5-6fc6-48b8-b259-db7b7a84b80a"
+          },
+          {
+            "name": "Information Title (TH)",
+            "expression": [
+              "",
+              "    CALCULATE(",
+              "        MIN(",
+              "            'Report Titles'[TH]",
+              "        ),",
+              "        'Report Titles'[Entity] = \"Information_Title\"",
+              "    )"
+            ],
+            "lineageTag": "b7177e90-75f0-42e4-8029-dc5b03729ced"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "_Information Page Measures",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(Source,{{\"Column1\", type text}})",
+                "in",
+                "    #\"Changed Type\""
               ],
               "type": "m"
             }
@@ -4542,10 +4611,6 @@
           {
             "name": "PBI_ResultType",
             "value": "Table"
-          },
-          {
-            "name": "PBI_NavigationStepName",
-            "value": "Navigation"
           }
         ],
         "lineageTag": "44d7130d-37fc-4355-b7bc-03374e929616",
