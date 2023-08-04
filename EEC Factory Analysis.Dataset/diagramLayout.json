@@ -4,14 +4,14 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 830,
-        "y": 7187.1079637704424
+        "x": 0,
+        "y": 13863.241237573813
       },
       "nodes": [
         {
           "location": {
-            "x": 487,
-            "y": 7780.1079637704424
+            "x": 1138.2820512820513,
+            "y": 14274.352679379084
           },
           "nodeIndex": "Data",
           "nodeLineageTag": "d2edb2f4-4f2a-41a5-b4b8-94c2ab876634",
@@ -19,38 +19,12 @@
             "height": 221,
             "width": 234
           },
-          "zIndex": 17
-        },
-        {
-          "location": {
-            "x": 2107.5999717712402,
-            "y": 7983.1079637704424
-          },
-          "nodeIndex": "_Geographic Analysis Measures",
-          "nodeLineageTag": "73aab386-4963-4ee5-bd4b-73436a37396e",
-          "size": {
-            "height": 124,
-            "width": 234
-          },
-          "zIndex": 20
-        },
-        {
-          "location": {
-            "x": 1279.2000122070313,
-            "y": 7980.1079637704424
-          },
-          "nodeIndex": "_Geographic Text Display Measures",
-          "nodeLineageTag": "d7c35ff6-4c77-424e-8fee-0d0704a51c5d",
-          "size": {
-            "height": 124,
-            "width": 234
-          },
           "zIndex": 18
         },
         {
           "location": {
-            "x": 2726.0000305175781,
-            "y": 7961.1079637704424
+            "x": 1802.8589814014922,
+            "y": 14568.173192199598
           },
           "nodeIndex": "Report Titles",
           "nodeLineageTag": "98e1d0d7-6cb0-48b8-a2b1-f8bdfb05a17f",
@@ -58,25 +32,25 @@
             "height": 124,
             "width": 234
           },
-          "zIndex": 16
+          "zIndex": 17
         },
         {
           "location": {
-            "x": 1777.6000366210938,
-            "y": 7982.1079637704424
+            "x": 1540.4205494416069,
+            "y": 14566.352929779725
           },
           "nodeIndex": "_Common Text",
           "nodeLineageTag": "d8a7b345-3517-48f2-8412-febb9b1d72b4",
           "size": {
-            "height": 124,
+            "height": 129.12820512820508,
             "width": 234
           },
-          "zIndex": 21
+          "zIndex": 22
         },
         {
           "location": {
             "x": 638.98308663578746,
-            "y": 7341.6154083806432
+            "y": 14049.962688091849
           },
           "nodeIndex": "District_Lookup",
           "nodeLineageTag": "9299f9f5-258b-485d-9cf5-fd54c1684dbf",
@@ -84,25 +58,24 @@
             "height": 173,
             "width": 234
           },
-          "zIndex": 13
+          "zIndex": 16
         },
         {
           "location": {
-            "x": 372.80159781427892,
-            "y": 7341.46010634049
+            "x": 2252.8205128205127,
+            "y": 14305.874196203033
           },
           "nodeIndex": "Province_Lookup",
-          "nodeLineageTag": "7c0da0a5-ef72-44ec-935c-0359d0ee71a5",
           "size": {
             "height": 176,
             "width": 234
           },
-          "zIndex": 22
+          "zIndex": 20
         },
         {
           "location": {
             "x": 892.60003662109375,
-            "y": 7344.6005191602435
+            "y": 14052.94779887145
           },
           "nodeIndex": "Sub-district_Lookup",
           "nodeLineageTag": "b22446ff-2fac-4927-9d8c-d73b4819afab",
@@ -114,176 +87,112 @@
         },
         {
           "location": {
-            "x": 1811.3984143927523,
-            "y": 7786.3042142728627
+            "x": 1061.3984143927523,
+            "y": 14777.984827317403
           },
           "nodeIndex": "Inv Analysis Buttons (EN)",
           "nodeLineageTag": "139ed83c-6688-4de2-bae0-808dede88da3",
           "size": {
             "height": 128,
-            "width": 234
+            "width": 249.38461538461547
           },
-          "zIndex": 8
+          "zIndex": 14
         },
         {
           "location": {
-            "x": 1535.1984327032992,
-            "y": 7783.3042142728627
+            "x": 785.19843270329932,
+            "y": 14781.395083727659
           },
           "nodeIndex": "Inv Analysis Buttons (TH)",
           "nodeLineageTag": "98543ff3-f82f-4c9a-93cb-3da0f0db682d",
           "size": {
             "height": 128,
-            "width": 234
+            "width": 250.66666666666674
           },
-          "zIndex": 9
+          "zIndex": 15
         },
         {
           "location": {
-            "x": 2726.1984327032992,
-            "y": 7538.3143038815615
-          },
-          "nodeIndex": "_Investment Analysis Measures",
-          "nodeLineageTag": "9e24ce9a-e9df-47d9-8ed3-fe700829cba2",
-          "size": {
-            "height": 104,
-            "width": 234
-          },
-          "zIndex": 10
-        },
-        {
-          "location": {
-            "x": 2728.1984327032992,
-            "y": 7678.3294382946078
-          },
-          "nodeIndex": "_Investment Text Display Measures",
-          "nodeLineageTag": "dac0e926-4b0d-43f2-a6bc-b4c9620be3ce",
-          "size": {
-            "height": 104,
-            "width": 234
-          },
-          "zIndex": 11
-        },
-        {
-          "location": {
-            "x": 2429.1984327032992,
-            "y": 7834.4401755566905
-          },
-          "nodeIndex": "_Workforce Text Display Measures",
-          "nodeLineageTag": "44d7130d-37fc-4355-b7bc-03374e929616",
-          "size": {
-            "height": 124,
-            "width": 234
-          },
-          "zIndex": 25
-        },
-        {
-          "location": {
-            "x": 2118.1984327032992,
-            "y": 7501.8521399141791
-          },
-          "nodeIndex": "_Workforce Analysis Measures",
-          "nodeLineageTag": "03e33e44-6245-4f90-9040-5fe390ba27e7",
-          "size": {
-            "height": 104,
-            "width": 234
-          },
-          "zIndex": 12
-        },
-        {
-          "location": {
-            "x": 1284.1984327032992,
-            "y": 7775.6308212003969
+            "x": 518.8138173186835,
+            "y": 14777.567844501349
           },
           "nodeIndex": "Geo Analysis Buttons (TH)",
           "nodeLineageTag": "62753ac4-175d-427c-a0d0-71d81637ca53",
           "size": {
             "height": 128,
-            "width": 234
+            "width": 249.38461538461536
           },
-          "zIndex": 5
+          "zIndex": 12
         },
         {
           "location": {
-            "x": 2417.3968348890203,
-            "y": 7987.1262195926247
+            "x": 1337.9096554018408,
+            "y": 14781.370935201267
           },
           "nodeIndex": "Wkf Analysis Buttons (EN)",
           "nodeLineageTag": "d9e38a57-f4cb-4c91-b0f0-734909763c80",
           "size": {
             "height": 124,
-            "width": 234
+            "width": 249.3846153846157
           },
-          "zIndex": 24
+          "zIndex": 21
         },
         {
           "location": {
-            "x": 2423.5952370747414,
-            "y": 7646.4592725391849
+            "x": 1612.0567755362797,
+            "y": 14776.601424045262
           },
           "nodeIndex": "Wkf Analysis Buttons (TH)",
           "nodeLineageTag": "57c512ab-b095-4761-a3c2-9671acfb3922",
           "size": {
             "height": 128,
-            "width": 234
+            "width": 259.64102564102586
           },
-          "zIndex": 6
+          "zIndex": 13
         },
         {
           "location": {
-            "x": 2734,
-            "y": 7820.1303629680115
-          },
-          "nodeIndex": "_Industry Analysis Measures",
-          "nodeLineageTag": "2578fda5-9a75-4889-b6e8-c1b09a7dae18",
-          "size": {
-            "height": 124,
-            "width": 234
-          },
-          "zIndex": 7
-        },
-        {
-          "location": {
-            "x": 1527,
-            "y": 7979.1079637704424
+            "x": 237.25641025641028,
+            "y": 14772.839358064983
           },
           "nodeIndex": "Geo Analysis Buttons (EN)",
+          "nodeLineageTag": "777f7ced-7ab4-472c-9b39-e4ab627db6a7",
           "size": {
             "height": 128,
-            "width": 234
+            "width": 258.35897435897436
           },
-          "zIndex": 1
+          "zIndex": 8
         },
         {
           "location": {
-            "x": 2119.3968348890203,
-            "y": 7802.1262195926247
+            "x": 1900.1660656582512,
+            "y": 14777.140165970497
           },
           "nodeIndex": "Ind Analysis Buttons (EN)",
           "nodeLineageTag": "67ee7320-b46c-4a10-8b4a-83ab45e8b37b",
           "size": {
             "height": 124,
-            "width": 234
+            "width": 244.25641025641016
           },
-          "zIndex": 2
+          "zIndex": 9
         },
         {
           "location": {
-            "x": 2127.1984021857211,
-            "y": 7646.1369986112495
+            "x": 2165.6599406472596,
+            "y": 14764.740688578866
           },
           "nodeIndex": "Ind Analysis Buttons (TH)",
           "nodeLineageTag": "f9be78f2-c761-4865-b842-991352774076",
           "size": {
             "height": 128,
-            "width": 234
+            "width": 242.97435897435889
           },
-          "zIndex": 3
+          "zIndex": 10
         },
         {
           "location": {
             "x": 1762.1984021857211,
-            "y": 7339.641562566796
+            "y": 14047.988842278002
           },
           "nodeIndex": "Industry Sub-Category_Lookup",
           "nodeLineageTag": "d63170b8-dd5b-43ad-abbf-b93fc45a80ac",
@@ -291,61 +200,113 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 11
         },
         {
           "location": {
             "x": 1147.1846478289726,
-            "y": 7344.6079637704443
+            "y": 14052.955243481651
           },
           "nodeIndex": "TSIC_Lookup",
           "size": {
             "height": 176.99999999999997,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1
         },
         {
           "location": {
             "x": 1458.5660878223562,
-            "y": 7350.7632658105977
+            "y": 14059.110545521804
           },
           "nodeIndex": "Industry Group_Lookup",
           "size": {
             "height": 173,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 2
         },
         {
           "location": {
-            "x": 2645.1984021857211,
-            "y": 3574.657949188088
-          },
-          "nodeIndex": "_Industry Text Display Measures",
-          "nodeLineageTag": "d5f74db3-15a1-4c5c-ba87-a29b7f74bd60",
-          "size": {
-            "height": 104,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 2645.1984021857211,
-            "y": 3407.7867849316308
+            "x": 1280.564165909343,
+            "y": 14569.207369481052
           },
           "nodeIndex": "_Information Page Measures",
           "nodeLineageTag": "f2849d2b-c781-41da-958f-ce2dd874a6c7",
           "size": {
-            "height": 104,
+            "height": 124,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 2109.5573648071659,
+            "y": 14539.042638067343
+          },
+          "nodeIndex": "_Home Page Measures",
+          "nodeLineageTag": "52c44dd8-03e9-4393-bec0-c2a0b154791c",
+          "size": {
+            "height": 124,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 236.89231989933927,
+            "y": 14561.788827215621
+          },
+          "nodeIndex": "_Geographic Measures",
+          "nodeLineageTag": "d7c35ff6-4c77-424e-8fee-0d0704a51c5d",
+          "size": {
+            "height": 124,
+            "width": 234
+          },
+          "zIndex": 23
+        },
+        {
+          "location": {
+            "x": 1017.7906670122052,
+            "y": 14566.791690382617
+          },
+          "nodeIndex": "_Industry Measures",
+          "nodeLineageTag": "d5f74db3-15a1-4c5c-ba87-a29b7f74bd60",
+          "size": {
+            "height": 124,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 495.37791205776659,
+            "y": 14565.651327380814
+          },
+          "nodeIndex": "_Investment Measures",
+          "nodeLineageTag": "dac0e926-4b0d-43f2-a6bc-b4c9620be3ce",
+          "size": {
+            "height": 124,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 756.12150962637634,
+            "y": 14567.40309028392
+          },
+          "nodeIndex": "_Workforce Measures",
+          "nodeLineageTag": "44d7130d-37fc-4355-b7bc-03374e929616",
+          "size": {
+            "height": 124,
+            "width": 234
+          },
+          "zIndex": 7
         }
       ],
       "name": "All tables",
-      "zoomValue": 100,
+      "zoomValue": 78,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,
